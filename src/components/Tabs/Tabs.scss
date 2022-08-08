@@ -1,0 +1,117 @@
+.tab-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    @media (max-width: 769px){
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .tabs-icon{
+        display: flex;
+        align-items: center;
+        @media (max-width: 767px) {
+            width: 100%;
+            justify-content: flex-end;
+        }
+        div{
+            margin-right: 10px;
+        }
+    }
+.about-home-btn{
+    margin-right: 70px !important;
+    @media (max-width: 769px){
+        margin-right: 25px !important;
+        padding: 12px 15px;
+    }
+}
+._icon-kubik {
+    &::before {
+        font-size: 30px;
+    }
+}
+._icon-two-lines {
+    &::before{
+        font-size: 30px;
+    }
+}
+    .search-result{
+        font-size: 24px;
+        margin-bottom: 0;
+        color: #727272;
+        @media(min-width: 767px) and (max-width: 1024px){
+            font-size: 20px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+    .active_button{
+     color: green;
+    }
+}
+.tab-cards{
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+
+.tab-error{
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    gap: 5px;
+    color: black;
+    margin-top: 30px;
+    a:nth-child(3){
+        margin-right: 0;
+    }
+    .active{
+        background-color: green;
+        border-radius: 3px;
+        padding: 3px 10px;
+        color: white;
+    }
+}
+
+
+.page-num{
+    color: black;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: 500;
+}
+// .page-num:hover{
+//     background-color: green;
+//     border-radius: 3px;
+//     padding: 3px 10px;
+//     color: white;
+// }
+.exit{
+    color: black;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+// .exit:hover{
+//     background-color: green;
+//     border-radius: 3px;
+//     padding: 3px 10px;
+//     color: white;
+// }
+@media (max-width: 767px){
+    .tabs-div{
+        margin: 16px 0;
+    }
+}

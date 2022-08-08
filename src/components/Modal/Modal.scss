@@ -1,0 +1,98 @@
+.modal{
+    background: #33333366;
+    bottom: 0;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100vw;
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    .modal-item{
+        width: 900px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px 50px;
+        border-radius: 10px;
+        @media (max-width: 968px){
+            width: -webkit-fill-available;
+            margin: 0 15px;
+        }
+        @media (max-width: 767px){
+            padding: 1rem;
+        }
+        .modal-title-p{
+            @media (max-width: 767px){
+                width: 120px !important;
+                height: 35px !important;
+                font-size: 20px !important;
+                border-radius: 6px !important;
+            }
+        }
+        .modal-title{
+            margin-bottom: 50px;
+            margin-top: 10px;
+            @media (max-width: 767px){
+                margin-bottom: 0px;
+            }
+            p{
+                @media (max-width: 767px){
+                    margin-top: 12px;
+                    font-size: 26px !important;
+                }
+            }
+        }
+        .modal-p{
+            font-size: 22px;
+            color:  #333333;
+            font-weight: 500;
+            line-height: 50px;
+            @media (max-width: 767px){
+                line-height: 1.6;
+                font-size: 18px;
+                margin-bottom: 2.5rem;
+            }
+        }
+        .logout-button{
+            display: flex;
+            flex-direction: row-reverse;
+            margin-top: -10px;
+            cursor: pointer;
+        }
+    }
+}
+
+.bg-modal{
+    background: #33333366;
+    bottom: 0;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100vw;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    .content-modal{
+        width: 700px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px 50px;
+        border-radius: 10px;
+        .modal-item{
+            font-size: 22px;
+            color:  #333333;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .modal-button{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    }
+}

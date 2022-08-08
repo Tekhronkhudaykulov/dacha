@@ -1,0 +1,132 @@
+.profile-input{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    @media (max-width: 769px){
+        margin-top: 24px;
+    }
+    @media (max-width: 767px){
+        flex-direction: column;
+        margin-top: 0;
+    }
+}
+.checkbox-all{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    @media (max-width: 767px){
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .verifation{
+        font-size: 20px;
+        color: #727272;
+        font-weight: 500;
+        cursor: pointer;
+        white-space: nowrap;
+        @media (max-width: 767px){
+            font-size: 18px !important;
+            width: 100% !important;
+            text-align: center !important;
+            margin-top: 12px !important;
+        }
+    }
+}
+.all-user-img{
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+    margin-top: 50px;
+    .user-img{
+        width: 320px;
+        height: 180px;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ant-upload-select-picture-card{
+        width: 300px;
+    }   
+}
+
+.profile-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    @media (max-width: 767px){
+        margin-top: 30px;
+    }
+}
+
+.input-img {
+    width: 200px;
+    height: 180px;
+    margin-left: 30px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+}
+
+
+.factory-item-img{
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 320px;
+    height: 162px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    @media (max-width: 767px){
+        width: 47%;
+    }
+}
+.profile-input-child{
+    width: 47% !important;
+    margin: 0 !important;
+    @media (max-width: 767px){
+        width: 100% !important;
+        margin-bottom: 1.2rem !important;
+    }
+    p{
+        @media (max-width: 767px){
+            font-size: 18px !important;
+            margin-bottom: 10px !important;
+        }
+    }
+    .user-name{
+        width: -webkit-fill-available !important;
+    }
+}
+.home-input-style{
+    width: auto !important;
+    @media (max-width: 767px){
+        width: 100% !important;
+    }
+}
+@media (max-width: 769px){
+    .media-style{
+        margin-top: 1rem !important;
+    }
+    .media-style-div{
+        margin-top: 10px !important;
+    }
+    .all-checkbox{
+        width: 48% !important;
+        p{
+            margin: 0 6px 0 0 !important;
+            line-height: 1;
+            font-size: 18px;
+        }
+    }
+    .media-label{
+        font-size: 17px !important;
+    }
+}
