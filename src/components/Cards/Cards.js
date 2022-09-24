@@ -18,17 +18,19 @@ const Card = ({ onclick, product }) => {
       <div className="card" onClick={onclick}>
         <div className="card-see">
           {product.premium === 1 && <p className="pre">Premium</p>}
-          {
-          product.views.length > 0 &&
-          <div className="card-icon-see">
-          <img src={See} alt="" />
-           <p>{product.views}</p>
+          {product.views > 0 && (
+            <div className="card-icon-see">
+              <img src={See} alt="" />
+              <p>{product.views}</p>
+            </div>
+          )}
         </div>
-          }
-         
-        </div>
-        <div className="card-image">
-          <img  className="active-img" src={`${baseUrl}/${product.images[0].image_path}`} alt="" />
+        <div className="card-image premium-card-image">
+          <img
+            className="active-img"
+            src={`${baseUrl}/${product?.images[0]?.image_path}`}
+            alt=""
+          />
         </div>
         <div className="card-all-item">
           <div className="card-description">
@@ -58,7 +60,9 @@ const Card = ({ onclick, product }) => {
               size={24}
               activeColor="green"
             />
-            <p className="card-reyting">({product.avg_rating === null ? 0 : product.avg_rating})</p>
+            <p className="card-reyting">
+              ({product.avg_rating === null ? 0 : product.avg_rating})
+            </p>
           </div>
           <div className="card-bottom">
             <div className="card-item">

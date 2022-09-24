@@ -1,12 +1,20 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./Search.scss";
 
-const Select = ({ category, formProps, addClass = "profile-input-child" }) => {
+const Select = ({
+  category,
+  formProps,
+  addClass = "profile-input-child",
+  plusClass,
+}) => {
+  const { t, i18n } = useTranslation();
+
   return (
     <>
-      <div className={`select-item ${addClass}`}>
+      <div className={`select-item ${addClass} ${plusClass}`}>
         <div class="city" style={{ marginBottom: "12px" }}>
-          Shahar
+          {t("Shahar")}
         </div>
         <select
           className="select-input"

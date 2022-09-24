@@ -8,11 +8,28 @@
     justify-content: center;
     flex-direction: column;
     margin-left: 50px;
+    @media(max-width: 769px){
+       margin-left: 0;
+       width: -webkit-fill-available;
+       min-height: 300px;
+       margin-top: 30px;
+    }
+    @media(max-width: 576px){
+        margin-left: 0;
+        width: -webkit-fill-available;
+        min-height: 300px;
+        margin-top: 30px;
+    }
     .payment-item{
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        .payment-img{
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+        }
         .payment-description{
             margin-bottom: 0
         }
@@ -41,16 +58,43 @@
     display: flex;
     align-items: center;
     margin-top: 40px;
+    padding: 20px;
+   @media(max-width: 769px){
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-bottom: 30px;
+    }
+    @media(max-width: 576px){
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-bottom: 30px;
 
+    }
 }
 
 .card-radio{
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    @media(max-width: 769px){
+        margin-top: 0;
+        flex-direction: column;
+    }
+    @media(max-width: 576px){
+        margin-top: 0;
+    }
     .tolov{
         margin-right: -100px;
         margin-top: 60px;
+        @media(max-width: 769px){
+            margin-top: 30px;
+            margin-right: 0;
+        }
+        @media(max-width: 576px){
+            margin-top: 30px;
+            margin-right: 0;
+
+        }
     }
 }
 .payment-button{
@@ -59,20 +103,52 @@
     justify-content: center;
     margin-top: 80px;
     margin-bottom: 50px;
+    @media(max-width: 769px){
+        margin-top: 0;
+    }
+    @media(max-width: 576px){
+        margin-top: 0;
+    }
 }
 .card-img{
     display: flex;
     align-items: center;
+    @media(max-width: 769px){
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-left: 14px;
+    }
+    @media(max-width: 576px){
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-left: 14px;
+
+    }
     img{
         width: 150px;
         height: 200px;
         object-fit: contain;
         margin-right: 15px;
         margin-top: 20px;
+        @media(max-width: 769px){
+            margin-top: 0;
+        }
+        @media(max-width: 576px){
+            margin-top: 0;
+
+        }
     }
 }
 .allRadio{
     margin-top: 50px;
+    @media(max-width: 769px){
+        margin-top: 0;
+        width: -webkit-fill-available;
+    }
+    @media(max-width: 576px){
+        margin-top: 0;
+        width: -webkit-fill-available;
+    }
 }
 .payment-box{
     background: #FFFFFF;
@@ -83,6 +159,16 @@
     display: flex;
     align-items: center;
     margin-top: 20px;
+    @media(max-width: 769px){
+        width: -webkit-fill-available;
+        height: 50px;
+        margin-top: 20px;
+    }
+    @media(max-width: 576px){
+        width: -webkit-fill-available;
+        height: 50px;
+        margin-top: 20px;
+    }
     .radio{
         display: flex;
         align-items: center;
@@ -90,6 +176,14 @@
         .radio_input{
             width: 30px;
             height: 30px;
+            @media(max-width: 769px){
+                width: 20px;
+            height: 20px;
+            }
+            @media(max-width: 576px){
+                width: 20px;
+                height: 20px;
+            }
         }
         .inputNumber{
             outline: none;
@@ -103,6 +197,13 @@
             color: black;
             font-weight: 600;
             font-size: 24px;
+            @media(max-width: 769px){
+               font-size: 18px;
+            }
+            @media(max-width: 576px){
+                font-size: 18px;
+
+            }
         }
     }
     p{
@@ -110,6 +211,12 @@
         font-size: 25px;
         font-weight: 600;
         color: black;
+        @media(max-width: 769px){
+            font-size: 18px;
+        }
+        @media(max-width: 576px){
+            font-size: 18px;
+        }
     }
 }
 
@@ -123,10 +230,31 @@
     align-items: center;
     justify-content: flex-end;
     flex-direction: column;
+    @media(max-width: 769px){
+        width: -webkit-fill-available;
+        position: relative;
+        height: 227px;
+    }
+    @media(max-width: 576px){
+        width: -webkit-fill-available;
+        position: relative;
+        height: 227px;
+
+    }
     .payment-item-card{
         width: 400px;
         margin: 0 auto;
         height: 40px;
+        @media(max-width: 769px){
+            width: auto;
+            position: absolute;
+            top: 17%;
+        }
+        @media(max-width: 576px){
+            width: auto;
+            position: absolute;
+            top: 17%;
+        }
         input{
             width: 100%;
             height: 100%;
@@ -136,13 +264,36 @@
             font-size: 30px;
             font-weight: 600;
             color: white;
+            @media(max-width: 769px){
+                font-size: 18px;
+            }
+            @media(max-width: 576px){
+                font-size: 18px;
+
+            }
         }
     }
-    p{
+    .balance{
         font-size: 23px;
         font-weight: 600;
         color: white;
         margin-left: 80px;
+        @media(max-width: 769px){
+            position: absolute;
+            top: 40%;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            right: 10%;
+        }
+        @media(max-width: 576px){
+            position: absolute !important;
+            top: 40% !important;
+            color: white !important;
+            font-size: 18px;
+            font-weight: bold;
+            right: 10%;
+        }
     }
     
 }

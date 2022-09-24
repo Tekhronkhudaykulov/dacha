@@ -9,12 +9,10 @@ const Input = ({
   margin,
   formProps,
   onChange,
-  addCLass,
-  plusClass,
 }) => {
   const [state, setState] = useState(showButton);
   return (
-    <div className={`login-input ${addCLass} ${plusClass}`} style={{ margin: margin }}>
+    <div className={"login-input"} style={{ margin: margin }}>
       {state ? (
         <>
           <p>{inputName}</p>

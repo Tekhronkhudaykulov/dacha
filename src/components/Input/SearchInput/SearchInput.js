@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../input.scss";
 import SearchImg from "../../../assets/icon/Outline/Interface/Search.png";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Input = ({
   widthImg = "50px",
@@ -15,6 +16,7 @@ const Input = ({
   onClick,
 }) => {
   const location = useLocation();
+  const { t, i18n } = useTranslation();
   return (
     <div
       className="search-input-item"
@@ -44,24 +46,26 @@ const Input = ({
           src={SearchImg}
           alt=""
         />
-        {location.pathname !== "/" ? <p>Qidirish</p> : null}
+        {location.pathname !== "/" ? <p>{t("Qidirish")}</p> : null}
       </button>
     </div>
   );
 };
 
 const SearchInput = ({
-  inputName = "shahar",
+  inputName,
   inputImg,
   inputPlaceholder,
   inputType,
   width,
   formValue,
+  inputTwo,
+  inputP,
 }) => {
   return (
     <div className="all-input">
-      <p>{inputName}</p>
-      <div className="input-item" style={{ width: width }}>
+      <p className={`p ${inputP}`}>{inputName}</p>
+      <div className={`input-item ${inputTwo}`} style={{ width: width }}>
         <img src={inputImg} alt="" />
         <input {...formValue} type={inputType} placeholder={inputPlaceholder} />
       </div>
@@ -76,6 +80,7 @@ const SearchChecbox = ({
   width,
   margin,
   showCheckbox = false,
+  onClick,
   onChange = () => null,
 }) => {
   const [checkBox, setCheckbox] = useState(showCheckbox);
@@ -87,6 +92,7 @@ const SearchChecbox = ({
       >
         <p style={{ margin: "0 20px" }}>{title}</p>
         <input
+          onClick={onClick}
           onChange={(e) => onChange(e.target.checked)}
           type="checkbox"
           id={id}

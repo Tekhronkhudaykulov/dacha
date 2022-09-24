@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import requests from "../../../helpers/requests";
 import HeaderNavbarTop from "../../Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import { Title } from "../../Title/Title";
 import { Input } from "../../Input/FormInput/Input";
@@ -6,7 +7,7 @@ import "./Profile.scss";
 import { SearchChecbox } from "../../Input/SearchInput/SearchInput";
 import "./Profile.scss";
 import { Button } from "../../Buttons/Header/Buttons";
-import { Modal } from "../../Modal/Modal";
+import { Modal, Modal2 } from "../../Modal/Modal";
 import ImgInput from "../../Input/ImgInput/ImgInput";
 import { userUpdate } from "../../../redux/actions/user/UserUpdateAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,10 +16,11 @@ import ProfileImg from "../../../assets/img/profilImg.jpeg";
 
 import { baseUrl } from "../../../helpers/requests";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const Profile = () => {
   const userInfor = useSelector((state) => state.user.userSite);
-  console.log(userInfor);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const {
     register,
@@ -37,19 +39,41 @@ const Profile = () => {
     }
   }, [userInfor]);
 
+  const userUpdate = (params) => (dispatch) => {
+    dispatch({ type: "user_update_start", payload: params });
+    requests
+      .userUpdate(params)
+      .then(({ data }) => {
+        dispatch({
+          type: "user_update_success",
+          payload: data,
+          _method: "PUT",
+        });
+        alert("Akkaunt muvoffaqiyatli o`zgartirildi!");
+        navigate("/user");
+      })
+      .catch(({ response }) => {
+        let message = (response && response.data.message) || "Login error";
+        dispatch({ type: "user_update_error", payload: message });
+        alert("Hatolik bor!");
+        navigate("/profile");
+      });
+  };
+
   const onSubmit = (data) => {
     dispatch(
       userUpdate({
         ...data,
         image: photo,
-        isIntermediary,
         _method: "PUT",
-      }),
-      navigate("/user")
+      })
     );
   };
 
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
+
   // const [image, setImages] = useState([]);
 
   const dispatch = useDispatch();
@@ -75,20 +99,20 @@ const Profile = () => {
       <HeaderNavbarTop />
       <div className="main">
         <div className="main-content media-style">
-          <Title showButton={true} title="Profilni tahrirlash" margin="0" />
+          <Title showButton={true} title={t("ProfileButton")} margin="0" />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="profile-input">
               <Input
                 showButton={true}
-                inputName="Ism-familiya"
+                inputName={t("FoydalanuvchiNomi")}
                 margin="0"
                 formProps={register("name")}
                 addCLass="profile-input-child"
               />
               <Input
                 showButton={true}
-                inputName="Foydalanuvchining tel raqami"
-                margin="0 100px"
+                inputName={t("Tel")}
+                margin="0"
                 inputType="number"
                 formProps={register("phone")}
                 addCLass="profile-input-child"
@@ -96,7 +120,7 @@ const Profile = () => {
             </div>
             {/* <ImgInput setImages={setImages} images={image} /> */}
             <div
-            className="media-style-div"
+              className="media-style-div"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -105,7 +129,7 @@ const Profile = () => {
             >
               <div className="factory-item-img">
                 <label
-                className="media-label"
+                  className="media-label"
                   style={{
                     color: "#727272",
                     fontSize: "20px",
@@ -113,7 +137,7 @@ const Profile = () => {
                   }}
                   for="file-input"
                 >
-                  Rasmni yuklash uchun ustiga bosing!
+                  {t("profileImg")}
                 </label>
                 <input
                   multiple
@@ -163,30 +187,32 @@ const Profile = () => {
             </div>
             <div className="checkbox-all" style={{ marginTop: "50px" }}>
               <SearchChecbox
+                onClick={() => setModal2(true)}
                 label="use"
                 id="use"
-                title="Vositachi"
-                onChange={() => setIsIntermediary(1)}
+                title={t("Vositachi")}
               />
               <SearchChecbox
                 label="notuse"
+                onClick={() => setModal3(true)}
                 id="notuse"
-                title="Vositachi emas"
+                title={t("NotVositachi")}
                 width="300px"
-                onChange={() => setIsIntermediary(0)}
+                margin="40px"
+                onClic
               />
               <p
                 onClick={() => setModal(true)}
                 style={{ margin: "0" }}
                 className="verifation"
               >
-                Verifikatsiya nima?
+                {t("verifikation")}?
               </p>
             </div>
             <div className="profile-button">
               <Button
                 showButton={true}
-                title="Saqlash"
+                title={t("Saqlash")}
                 width="220px"
                 height="50px"
                 cursor="pointer"
@@ -197,6 +223,8 @@ const Profile = () => {
         </div>
       </div>
       {modal ? <Modal setOpenModal={setModal} /> : null}
+      {modal2 ? <Modal2 setOpenModal={setModal2} /> : null}
+      {modal3 ? <Modal2 setOpenModal={setModal3} /> : null}
     </div>
   );
 };

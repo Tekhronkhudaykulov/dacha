@@ -15,9 +15,11 @@ import { fetchUser } from "../../../redux/actions/user/userAction";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Payment = () => {
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchUser());
@@ -33,16 +35,12 @@ const Payment = () => {
       <div className="main">
         <div className="main-content">
           <div className="payment-title">
-            <Title
-              showButton={true}
-              title="Hisobni to'ldirish"
-              margin="-10px"
-            />
+            <Title showButton={true} title={t("HisobniToldirish")} />
           </div>
-        
+
           <div className="card-radio">
             <div className="allRadio">
-              <PaymentInput radioId="radio1" price="6000" />
+              <PaymentInput radioId="radio1" price="6 000" />
               <PaymentInput radioId="radio2" price="50 000 " />
               <PaymentInput radioId="radio3" price="160 000" />
               <PaymentInput radioId="radio4" price="160 000" />
@@ -69,19 +67,19 @@ const Payment = () => {
             </div>
           </div>
           <div className="payment-button">
-            <Button
+            {/* <Button
               showButton={true}
-              title="O`chirish"
-              background="white"
+              title={t("Ochirish")}
               color="green"
               border="1px solid green"
               padding="10px 40px"
               fonstSize="24px"
               margin="20px"
-            />
+              addClass="bg-buttons"
+            /> */}
             <Button
               showButton={true}
-              title="To`lash"
+              title={t("Tolash")}
               background="green"
               color="white"
               border="1px solid green"

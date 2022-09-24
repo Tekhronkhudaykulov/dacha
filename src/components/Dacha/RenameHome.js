@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import requests from "../../helpers/requests";
 import * as yup from "yup";
 import HeaderNavbarTop from "../../components/Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import { Title } from "../Title/Title";
@@ -13,14 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { dachaCategory } from "../../redux/actions/Dacha/DachaCategoryAction";
 import { dachaTypeList } from "../../redux/actions/Dacha/DachaTypeListAction";
 import { comfortItem } from "../../redux/actions/Dacha/CompoftsAction";
-import { baseUrl } from "../../helpers/requests";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchIdUser } from "../../redux/actions/user/HomeIdAction";
 import { AddModal } from "../Modal/Modal";
 import { dachaUpdate } from "../../redux/actions/Dacha/DachaCreateAction";
-import { deleteDacha } from "../../redux/actions/Dacha/DeleteDachaAction";
 import { SearchChecbox } from "../Input/SearchInput/SearchInput";
+import { useTranslation } from "react-i18next";
 
 const schema = yup
   .object({
@@ -46,6 +46,8 @@ const AddHome = () => {
   const [activeButton, setActiveButton] = useState("");
   const { id } = useParams();
 
+  const { t, i18n } = useTranslation();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const AddHome = () => {
     dispatch(comfortItem());
     dispatch(fetchIdUser(id));
   }, []);
-  const { loading } = useSelector((state) => state.userId);
+  const { loading } = useSelector((state) => state.addHome);
 
   const data = useSelector((state) => state.userId.userId);
 
@@ -74,6 +76,7 @@ const AddHome = () => {
         [item[0]]: item[1],
       }));
       reset(data);
+      console.log(data);
     }
   }, [data]);
 
@@ -94,6 +97,27 @@ const AddHome = () => {
     dispatch(dachaUpdate({ ...payload, _method: "PUT" }));
   };
 
+  const dachaUpdate = (params) => (dispatch) => {
+    dispatch({ type: "dacha_update_start", payload: params });
+    requests
+      .dachaUpdate(params)
+      .then(({ data }) => {
+        dispatch({
+          type: "dacha_update_success",
+          payload: data,
+          _method: "PUT",
+        });
+        navigate("/user");
+        alert("Dacha o`zgartirildi !");
+      })
+      .catch(({ response }) => {
+        let message = (response && response.data.message) || "Login error";
+        dispatch({ type: "dacha_update_error", payload: message });
+        navigate("/renameHome");
+        alert("Dacha o`zgartirishda hatolik bor!");
+      });
+  };
+
   const [type_id, setTypeId] = useState(1);
   const [comforts, setComforts] = useState([]);
   const [images, setImages] = useState([]);
@@ -102,225 +126,222 @@ const AddHome = () => {
   return (
     <div>
       <HeaderNavbarTop />
-      {loading ? (
-        <p></p>
-      ) : (
-        <div className="main">
-          <div className="main-content">
-            <Title showButton={true} title="Dachani tahrirlash" margin="0" />
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="home-input">
+      <div className="main">
+        <div className="main-content">
+          <Title showButton={true} title={t("DachaniOzgartirish")} margin="0" />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="home-input">
+              <InputValue
+                inputValue={t("SarlavhaniKiriting")}
+                placeholder="Masalan, Dacha sotiladi"
+                widghtInput="250px"
+                type="text"
+                margin="0"
+                formProps={register("name", { required: true })}
+                plusClass={`${errors.name && "validation"}`}
+              />
+              <Select
+                category={category}
+                formProps={register("category_id", {
+                  required: true,
+                })}
+                plusClass={`${errors.category_id && "validation"}`}
+              />
+            </div>
+            <div className="add-home-button">
+              {type.map((item, key) => (
+                <>
+                  <button
+                    key={key}
+                    onClick={() => setTypeId(item.id)}
+                    className={data.type.id == item.id && "active-button"}
+                    type="button"
+                  >
+                    {i18n.language == "uz" ? item.name_uz : item.name_ru}
+                  </button>
+                </>
+              ))}
+            </div>
+            <div className="all-add-input">
+              <p className="filter">{t("Filterlar")}</p>
+              <div className="add-input">
+                <div className="add-input-item">
+                  <p className="count">{t("bathRooms")}</p>
+                  <input
+                    type="number"
+                    {...register("room_count")}
+                    className={`${errors.room_count && "validation"}`}
+                  />
+                </div>
+
+                <div className="add-input-item">
+                  <p className="count">{t("people")}</p>
+                  <input
+                    type="number"
+                    {...register("capacity")}
+                    className={`${errors.capacity && "validation"}`}
+                  />
+                </div>
+                <div className="add-input-item">
+                  <p className="count">{t("room")}</p>
+                  <input
+                    type="number"
+                    {...register("bathroom_count")}
+                    className={`${errors.bathroom_count && "validation"}`}
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="all-category"
+              style={{
+                display: "flex",
+                marginLeft: "80px",
+                justifyContent: "space-around",
+              }}
+            >
+              {/* {category.map((item) => (
+            <p>{item.name_uz}</p>
+          ))} */}
+            </div>
+            <div className="home-category">
+              {comfortsList.map((item) => (
+                <div className="home-category-items">
+                  {/* <img src={`${baseUrl}/${item.icon}`} alt="" />
+                <p
+                  onClick={() => {
+                    if (comforts.includes(item.id)) {
+                      setComforts((prevState) =>
+                        prevState.filter((id) => id != item.id)
+                      );
+                    } else {
+                      setComforts([...comforts, item.id]);
+                    }
+                  }}
+                >
+                  {item.name_uz}
+                </p> */}
+                  <SearchChecbox
+                    label={item.id}
+                    id={item.id}
+                    title={item.name_uz}
+                    onChange={(isChecked) => {
+                      if (comforts.includes(item.id)) {
+                        setComforts((prevState) =>
+                          prevState.filter((id) => id != item.id)
+                        );
+                      } else {
+                        setComforts([...comforts, item.id]);
+                      }
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            <ImgInput setImages={setImages} images={images} />
+            <div className="obshi" style={{ marginTop: "50px" }}>
+              <p className="malumot">{t("QoshimchaMalumotKiriting")}</p>
+              <textarea
+                placeholder={`${t("EloningizTavsifiniYozing")}...`}
+                cols="30"
+                rows="10"
+                {...register("comment")}
+                className={`${errors.bathroom_count && "validation"} textarea`}
+              ></textarea>
+              <div className="about-user-dacha">
                 <InputValue
-                  inputValue="Sarlavhani kiriting"
-                  placeholder="Masalan, Dacha sotiladi"
-                  widghtInput="250px"
+                  inputValue={t("ReklamaBeruvchiNomi")}
+                  width="90%"
+                  height="65px"
                   type="text"
                   margin="0"
-                  formProps={register("name_uz", { required: true })}
+                  formProps={register("advertiser_name")}
+                  plusClass={errors.advertiser_name && "validation"}
                 />
-                {errors.name_uz && (
-                  <p className="validation">Malumotlarni kiriting!</p>
-                )}
-                <Select
-                  category={category}
-                  formProps={register("category_id", {
-                    required: true,
-                  })}
+                <InputValue
+                  inputValue={t("Tel")}
+                  width="90%"
+                  height="65px"
+                  type="number"
+                  margin="0 70px"
+                  formProps={register("phone")}
+                  plusClass={errors.phone && "validation"}
                 />
-                {errors.category_id && (
-                  <p className="validation">Malumotlarni kiriting!</p>
-                )}
               </div>
-              <div className="add-home-button">
-                {type.map((item, key) => (
-                  <>
-                    <button
-                      key={key}
-                      onClick={() => setTypeId(item.id)}
-                      className={type_id == item.id && "active-button"}
-                      type="button"
-                    >
-                      {item.name_uz}
-                    </button>
-                  </>
-                ))}
-              </div>
-              <div className="all-add-input">
-                <p className="filter">Filterlar</p>
-                <div className="add-input">
-                  <div className="add-input-item">
-                    <p className="count">Hammomlar soni</p>
-                    <input type="number" {...register("room_count")} />
-                    {errors.room_count && (
-                      <p className="validation">Malumotlarni kiriting!</p>
-                    )}
-                  </div>
-                  <div className="add-input-item">
-                    <p className="count">Odamlar soni</p>
-                    <input type="number" {...register("capacity")} />
-                    {errors.capacity && (
-                      <p className="validation">Malumotlarni kiriting!</p>
-                    )}
-                  </div>
-                  <div className="add-input-item">
-                    <p className="count">Xonalar soni</p>
-                    <input type="number" {...register("bathroom_count")} />
-                    {errors.bathroom_count && (
-                      <p className="validation">Malumotlarni kiriting!</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div
-                className="all-category"
-                style={{
-                  display: "flex",
-                  marginLeft: "80px",
-                  justifyContent: "space-around",
-                }}
-              ></div>
-              <div className="home-category">
-                {comfortsList.map((item) => (
-                  <div className="home-category-items">
-                    <SearchChecbox
-                      label={item.id}
-                      id={item.id}
-                      title={item.name_uz}
-                      onChange={(isChecked) => {
-                        if (comforts.includes(item.id)) {
-                          setComforts((prevState) =>
-                            prevState.filter((id) => id != item.id)
-                          );
-                        } else {
-                          setComforts([...comforts, item.id]);
-                        }
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-              <ImgInput setImages={setImages} images={images} />
-              <div className="obshi" style={{ marginTop: "50px" }}>
-                <p className="malumot">Qo`shimcha ma`lumot kiriting</p>
-                <textarea
-                  placeholder="E'loningiz tavsifini yozing ...."
-                  className="textarea"
-                  cols="30"
-                  rows="10"
-                  // {...register("comment")}
-                ></textarea>
-                {/* {errors.comment && (
-                  <p className="validation">Malumotlarni kiriting!</p>
-                )} */}
-
-                <div className="about-user-dacha">
+              <div className="all-price">
+                <div className="about-data">
                   <InputValue
-                    inputValue="Reklama beruvchi nomi"
-                    width="90%"
+                    inputValue={t("IshKunlarida1")}
                     height="65px"
-                    type="text"
-                    margin="0"
-                    formProps={register("advertiser_name")}
-                  />
-                  {errors.advertiser_name && (
-                    <p className="validation">Malumotlarni kiriting!</p>
-                  )}
-
-                  <InputValue
-                    inputValue="Telefon nomer"
-                    width="90%"
-                    height="65px"
+                    widght="300px"
                     type="number"
-                    margin="0 70px"
-                    // formProps={register("phone")}
+                    width="350px"
+                    formProps={register("cost")}
+                    plusClass={`${
+                      errors.cost && "validation"
+                    } home-input-style`}
                   />
-                  {/* {errors.phone && (
-                    <p className="validation">Malumotlarni kiriting!</p>
-                  )} */}
-                </div>
-                <div className="all-price">
-                  <div className="about-data">
+                  <div className="about-data1">
                     <InputValue
-                      inputValue="Narxi (ish kunlarida)"
+                      inputValue={t("DamOlishKunlarida1")}
                       height="65px"
-                      widght="300px"
-                      type="number"
                       width="350px"
-                      formProps={register("cost")}
+                      type="number"
+                      formProps={register("weekday_cost")}
+                      plusClass={`${
+                        errors.weekday_cost && "validation"
+                      } home-input-style`}
                     />
-                    {errors.cost && (
-                      <p className="validation">Malumotlarni kiriting!</p>
-                    )}
-
-                    <div className="about-data1">
-                      <InputValue
-                        inputValue="Narxi (dam olish kunlarida)"
-                        height="65px"
-                        width="350px"
-                        type="number"
-                        // formProps={register("weekday_cost")}
-                      />
-                      {/* {errors.weekday_cost && (
-                        <p className="validation">Malumotlarni kiriting!</p>
-                      )} */}
-                    </div>
-                    <div className="dacha-valuta">
-                      <p>Vayuta</p>
-                      <div className="dollar">
-                        <button
-                          onClick={() => setCurrency("uzs")}
-                          className={currency === "uzs" ? "active" : null}
-                          type="button"
-                        >
-                          y.e
-                        </button>
-                        <button
-                          onClick={() => setCurrency("y.e")}
-                          className={currency === "y.e" ? "active" : null}
-                          type="button"
-                        >
-                          uzs
-                        </button>
-                      </div>
+                  </div>
+                  <div className="dacha-valuta">
+                    <p style={{ marginBottom: "5px" }}>{t("Valyuta")}</p>
+                    <div className="dollar">
+                      <button
+                        onClick={() => setCurrency("y.e")}
+                        className={currency === "y.e" ? "active" : null}
+                        type="button"
+                      >
+                        y.e
+                      </button>
+                      <button
+                        onClick={() => setCurrency("uzs")}
+                        className={currency === "uzs" ? "active" : null}
+                        type="button"
+                      >
+                        uzs
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="dacha-button">
-                <Button
-                  title="O`chirish"
-                  showButton={true}
-                  padding="10px 70px"
-                  background="none"
-                  color="green"
-                  border="1px solid green"
-                  margin="20px"
-                  type="button"
-                  onClickButton={() => setModalDelete(true)}
-                />
-                <Button
-                  title="Saqlash"
-                  showButton={true}
-                  padding="10px 70px"
-                  // onClickButton={() => setModal(true)}
-                />
-              </div>
-            </form>
-            <Footer />
-          </div>
+            </div>
+            <div className="dacha-button">
+              <Button
+                title={t("Ochirish")}
+                showButton={true}
+                width="170px"
+                height="50px"
+                background="none"
+                color="green"
+                border="1px solid green"
+                margin="30px"
+                type="button"
+                onClickButton={() => setModalDelete(true)}
+              />
+              <Button
+                title={t("Qoshish")}
+                showButton={true}
+                width="170px"
+                height="50px"
+                loading={loading}
+                type="submit"
+              />
+            </div>
+          </form>
+          <Footer />
         </div>
-      )}
-
-      {/* {modal ? <ModalAddHomePage modalClose={setModal} /> : null} */}
-      {modalDelete ? (
-        <AddModal
-          closeModal={setModalDelete}
-          onClick={() => {
-            dispatch(deleteDacha(id));
-            navigate("/user");
-          }}
-        />
-      ) : null}
+      </div>
+      {modalDelete ? <AddModal modalClose={setModalDelete} id={id} /> : null}
     </div>
   );
 };

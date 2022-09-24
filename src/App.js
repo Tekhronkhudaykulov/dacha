@@ -77,8 +77,10 @@ function App() {
               }
             />
             <Route path={"/payment"} element={<Payment />} />
-            <Route path={"/advertiseCottage/:id"} element={<AdvertiseCottage />} />
-
+            <Route
+              path={"/advertiseCottage/:id"}
+              element={<AdvertiseCottage />}
+            />
             <Route
               path={"/addHome"}
               element={
@@ -104,7 +106,7 @@ function App() {
             <Route path={"/sms"} element={<Sms />} />
             <Route path={"/signUp"} element={<SignUp />} />
             <Route path={"/smsRecover"} element={<SmsRecoverPassword />} />
-            <Route path={"/passwordRecover"} element={<PasswordRecover/>} />
+            <Route path={"/passwordRecover"} element={<PasswordRecover />} />
           </Route>
         </Routes>
       </Wrapper>

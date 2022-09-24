@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dachaTypeList } from "../../../redux/actions/Dacha/DachaTypeListAction";
 import { useNavigate } from "react-router-dom";
 import LoadingCard from "../../../element/loadingCard";
+import { useTranslation } from "react-i18next";
 const Categories = () => {
   const dispatch = useDispatch();
 
@@ -21,26 +22,24 @@ const Categories = () => {
   const { loading } = useSelector((state) => state.typeList);
 
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const navigateSearch = (id) => {
     navigate(`/searchHome?type_id=${id}`);
   };
 
   return (
-    <div>
-      <Title showButton={true} />
+    <div className="categories-content">
+      <Title showButton={true} title={t("category")} />
       {loading ? (
         <LoadingCard />
       ) : (
         <Swiper
           slidesPerView={3}
           breakpoints={{
-            769:
-            {slidesPerView : 3},
-            700:
-            {slidesPerView : 2},
-            0:
-            {slidesPerView : 1}
+            769: { slidesPerView: 3 },
+            700: { slidesPerView: 2 },
+            0: { slidesPerView: 1 },
           }}
           loopFillGroupWithBlank={true}
           loop={true}

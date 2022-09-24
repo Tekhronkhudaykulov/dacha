@@ -6,13 +6,16 @@ import Camera from "./../../assets/icon/photo_camera.png";
 import Room from "./../../assets/icon/sensor_door.png";
 import See from "./../../assets/icon/glaz.png";
 import { baseUrl } from "../../helpers/requests";
-import NoPhoto from "../../assets/img/nophoto.png"
+import NoPhoto from "../../assets/img/nophoto.png";
 import "../../assets/longCards.scss";
+import { useTranslation } from "react-i18next";
 
 const LongCards = ({ background, border, product }) => {
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
+  const { t, i18n } = useTranslation();
+
   return (
     <div
       className="long-card"
@@ -20,18 +23,20 @@ const LongCards = ({ background, border, product }) => {
     >
       <div className="logn-card-img">
         <div className="card-image long-image">
-        {product.images.length > 0 ? product.images?.map((item) => (
-          <img className="active-img" src={`${baseUrl}/${item?.image_path}`} alt="" />
-        )) : <img className="active-img" src={NoPhoto} alt="no-photo"/>}
+          {product.images.length > 0 ? (
+            <img src={`${baseUrl}/${product.images[0].image_path}`} alt="" />
+          ) : (
+            <img className="active-img" src={NoPhoto} alt="no-photo" />
+          )}
         </div>
         <div className="card-see">
-        {product.top_rated == 1 && 
-          <p className="pre">TOP</p>
-          }
-          {product.views > 0 &&  <div className="card-icon-see">
-            <img src={See} alt="" />
-              <p style={{marginLeft: "5px"}}>{product.views}</p>
-          </div>}
+          {product.top_rated == 1 && <p className="pre">TOP</p>}
+          {product.views > 0 && (
+            <div className="card-icon-see">
+              <img src={See} alt="" />
+              <p style={{ marginLeft: "5px" }}>{product.views}</p>
+            </div>
+          )}
         </div>
       </div>
       <div className="card-title-logn">
@@ -47,15 +52,19 @@ const LongCards = ({ background, border, product }) => {
           </div>
           <div className="all-category">
             <img src={Camera} alt="" />
-            <p>{product.images.length} photo</p>
+            <p>
+              {product.images.length} {t("photo")}
+            </p>
           </div>
           <div className="all-category">
             <img src={Room} alt="" />
-            <p>{product.room_count} rooms</p>
+            <p>
+              {product.room_count} {t("room")}
+            </p>
           </div>
         </div>
         <div className="long-card-description">
-          {product.category.description_uz}
+          {product.category.description_ru}
         </div>
         <div className="long-card-reytin">
           <ReactStars
@@ -64,7 +73,9 @@ const LongCards = ({ background, border, product }) => {
             size={24}
             activeColor="green"
           />
-        <p className="card-reyting">({product.avg_rating === null ? 0 : product.avg_rating})</p>
+          <p className="card-reyting">
+            ({product.avg_rating === null ? 0 : product.avg_rating})
+          </p>
         </div>
       </div>
       <div className="card-logn-price">

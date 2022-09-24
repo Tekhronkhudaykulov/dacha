@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Password from "../../../assets/icon/Outline/Solid/Status/Icon.png";
 import HeaderNavbarTop from "../../Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import ProfileImg from "../../../assets/img/ImageProfile.png";
@@ -8,37 +8,43 @@ import { Input } from "../../Input/FormInput/Input";
 import { Button } from "../../Buttons/Header/Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import requests from "../../../helpers/requests";
-import { registerPage } from "../../../redux/actions/auth/authAction";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import PhoneInput from "react-phone-input-2";
+import { useTranslation } from "react-i18next";
+
+toast.configure();
 
 const RestoreProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const { t, i18n } = useTranslation();
+
   const {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm();
 
   const { loading } = useSelector((state) => state.register);
 
-   const registerPage = (userInfo) => (dispatch) => {
+  const registerPage = (userInfo) => (dispatch) => {
     dispatch({ type: "register_start", payload: userInfo });
     requests
       .register(userInfo)
       .then(({ data }) => {
         dispatch({ type: "register_start_success", payload: data });
-        alert("Registratsiyadan muvaffaqiyatli o`tdiz!");
+        toast.success("Succes!");
         navigate("/sms");
       })
       .catch(({ response }) => {
         let message = (response && response.data.message) || "Login error";
         dispatch({ type: "register_start_error", payload: message });
-        alert("Registratsiyadan hatolik bo`ldi!");
+        toast.success("Error!");
         navigate("/restoreProfile");
       });
   };
@@ -56,38 +62,54 @@ const RestoreProfile = () => {
         <div className="input-link">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="login-content">
-              <Title margin={12} showButton={true} title="Ro`yxatdan o`tish" />
+              <Title
+                margin={12}
+                showButton={true}
+                title={t("Royhatdanotish")}
+              />
               <div className="login-input">
                 <Input
                   showButton={true}
+                  inputName={t("FoydalanuvchiNomi")}
                   inputType="text"
                   formProps={register("name", {
                     required: true,
                   })}
                 />
-                {errors.name && <p className="validation">Ismni yozing !</p>}
+                {errors.name && <p className="validation">{t("name")}</p>}
               </div>
               <div className="login-input">
-                <p>Tel</p>
+                <p>{t("Tel")}</p>
                 <div className="user-name">
-                  <input
-                    type="number"
-                    {...register("phone", {
-                      required: "Malumot kiriting!",
-                      minLength: 12,
-                    })}
+                  <Controller
+                    control={control}
+                    name="phone"
+                    rules={{ required: true }}
+                    render={({ field: { ref, ...field } }) => (
+                      <PhoneInput
+                        {...field}
+                        country={"uz"}
+                        defaultMask={"(..) ...-..-.."}
+                        placeholder="+998"
+                        alwaysDefaultMask={true}
+                        name="phone"
+                        inputExtraProps={{
+                          ref,
+                          required: true,
+                          autoFocus: true,
+                        }}
+                      />
+                    )}
                   />
                 </div>
                 {errors.phone && (
-                  <p className="validation">
-                    Telefon raqam 12ta harfdan iborat bolishi kerak !
-                  </p>
+                  <p className="validation">{t("telValidation")}</p>
                 )}
               </div>
               <div className="login-input">
                 <Input
                   showButton={true}
-                  inputName="Parol"
+                  inputName={t("Parol")}
                   img={Password}
                   inputType="password"
                   formProps={register("password", {
@@ -96,15 +118,13 @@ const RestoreProfile = () => {
                   })}
                 />
                 {errors.password && (
-                  <p className="validation">
-                    Parol 6ta harfdan koproq bolishi kerak !
-                  </p>
+                  <p className="validation">{t("parolValidation")}</p>
                 )}
               </div>
               <div className="login-input">
                 <Input
                   showButton={true}
-                  inputName="Parol"
+                  inputName={t("Parol")}
                   img={Password}
                   inputType="password"
                   formProps={register("password", {
@@ -113,9 +133,7 @@ const RestoreProfile = () => {
                   })}
                 />
                 {errors.password && (
-                  <p className="validation">
-                    Parol 6ta harfdan koproq bolishi kerak !
-                  </p>
+                  <p className="validation">{t("parolValidation")}</p>
                 )}
               </div>
             </div>
@@ -123,15 +141,15 @@ const RestoreProfile = () => {
               <Button
                 width="250px"
                 height="55px"
-                title="Ro`yxatdan o`tish"
+                title={t("Royhatdanotish")}
                 showButton={true}
                 loading={loading}
               />
               <Link to="/login">
-                <UrlTitle title="Kirish" showTitle={true} />
+                <UrlTitle title={t("Kirish")} showTitle={true} />
               </Link>
               <Link to="/signUp">
-                <UrlTitle title="Qayta tiklash" showTitle={true} />
+                <UrlTitle title={t("QaytaParolniTiklash")} showTitle={true} />
               </Link>
             </div>
           </form>

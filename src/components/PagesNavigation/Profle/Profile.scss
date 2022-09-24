@@ -86,8 +86,11 @@
     border-radius: 12px;
     @media (max-width: 767px){
         width: 47%;
+        height: 120px;
     }
+  
 }
+
 .profile-input-child{
     width: 47% !important;
     margin: 0 !important;
@@ -120,6 +123,7 @@
     }
     .all-checkbox{
         width: 48% !important;
+        margin-left: 0 !important;
         p{
             margin: 0 6px 0 0 !important;
             line-height: 1;

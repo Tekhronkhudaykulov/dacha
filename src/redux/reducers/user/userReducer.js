@@ -26,7 +26,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         loading: false,
       };
     case "clear_user":
-      return state.userSite;
+      return INITIAL_STATE;
     default:
       return state;
   }

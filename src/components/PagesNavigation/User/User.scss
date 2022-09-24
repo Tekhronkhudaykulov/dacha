@@ -21,6 +21,7 @@
     }
     .user-name{
         display: flex;
+        align-items: center;
         margin-top: 20px;
         margin-bottom: 10px;
         @media (max-width: 767px){
@@ -64,9 +65,9 @@
     }
 }
 .user-content{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
     margin-bottom: -20px;
     padding: 0 20px;
     @media (max-width: 767px){
@@ -96,6 +97,11 @@
     grid-gap: 30px;
     @media (max-width: 767px){
         margin-top: 1rem;
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 576px){
+        margin-top: 1rem;
+        grid-template-columns: 1fr 1fr;
     }
 }
 @media (min-width: 767px){

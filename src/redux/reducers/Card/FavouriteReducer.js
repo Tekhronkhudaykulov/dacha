@@ -41,7 +41,26 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         message: payload.message,
         loading: false,
-        favouriteList: payload.data,
+        favouriteList: payload.dacha,
+      };
+    case "delete_favourite_start":
+      return {
+        ...state,
+        message: "",
+        loading: true,
+      };
+    case "delete_favourite_error":
+      return {
+        ...state,
+        message: payload,
+        loading: false,
+      };
+    case "delete_favourite_success":
+      window.location.reload();
+      return {
+        ...state,
+        message: payload.message,
+        loading: false,
       };
     default:
       return state;

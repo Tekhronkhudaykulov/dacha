@@ -7,11 +7,11 @@ import { Title } from "../../Title/Title";
 import { Button } from "../../Buttons/Header/Buttons";
 import { sms } from "../../../redux/actions/auth/authAction";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Sms = () => {
   const { registerList } = useSelector((state) => state.register);
   const user_id = registerList.id;
-
 
   const [code, setCode] = useState(0);
 
@@ -26,6 +26,9 @@ const Sms = () => {
   }, [smsToken]);
 
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation();
+
   const { loading } = useSelector((state) => state.register);
 
   return (
@@ -36,17 +39,13 @@ const Sms = () => {
           <img src={ProfileImg} alt="" />
         </div>
         <div className="input-link">
-          <div className="login-content" style={{paddingBottom: "45px"}}>
-            <Title
-              title="Sms kodni kiriting!"
-              showButton={true}
-              fonstSize="50px"
-            />
+          <div className="login-content" style={{ paddingBottom: "45px" }}>
+            <Title title={t("SmsTitle")} showButton={true} fonstSize="50px" />
             <div className="login-input" style={{ marginTop: "20px" }}>
               <div className="user-name">
                 <input
                   type="number"
-                  placeholder="Sms kodni kiriting!"
+                  placeholder={t("SmsTitle")}
                   onChange={(e) => setCode(e.target.value)}
                 />
               </div>
@@ -54,7 +53,7 @@ const Sms = () => {
             <div className="Login-button">
               <Button
                 showButton={true}
-                title="Kirish"
+                title={t("Kirish")}
                 width="250px"
                 height="55px"
                 loading={loading}

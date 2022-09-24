@@ -3,11 +3,6 @@ import ReactStars from "react-rating-stars-component";
 import HeaderNavbarTop from "../Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import { Title } from "../Title/Title";
 import "./Search.scss";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import { EffectCoverflow, Pagination } from "swiper";
 import UserImg from "../../assets/img/Ellipse 4.png";
 import Place from "../../assets/img/place.png";
 import Sleep from "../../assets/img/sleep.png";
@@ -16,22 +11,59 @@ import People from "../../assets/img/peple.png";
 import { Button } from "../Buttons/Header/Buttons";
 import Premium from "../Cards/Premium/Premium";
 import Footer from "../Footer/Footer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchIdUser } from "../../redux/actions/user/HomeIdAction";
 import requests from "../../helpers/requests";
 import { baseUrl } from "../../helpers/requests";
-import { MdFavoriteBorder } from "react-icons/md";
-import {
-  getFavourite,
-  postFavourite,
-} from "../../redux/actions/Card/FavouriteAction";
+import { MdFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import { useState } from "react";
 import { ratingDacha } from "../../redux/actions/Dacha/RatingDachaAction";
+import ProfileImg from "../../assets/img/profilImg.jpeg";
+import { useTranslation } from "react-i18next";
+import {
+  deleteFavourite,
+  getFavourite,
+} from "../../redux/actions/Card/FavouriteAction";
+import ImageGallery from "react-image-gallery";
+import { Navigation, Pagination, Scrollbar, A11y, Lazy } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/lazy";
+import "react-image-gallery/styles/scss/image-gallery.scss";
+import HelmetReact from "../Helmet";
 
 const AboutHome = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation();
+
+  const navigate = useNavigate();
+
+  const postFavourite = (id) => (dispatch) => {
+    dispatch({ type: "favourite_post_start", payload: id });
+    requests
+      .postFavourite(id)
+      .then(({ data }) => {
+        dispatch({ type: "favourite_post_success", payload: data });
+        alert("Bahonlangan ro`yhatiga qo`shildi!");
+      })
+      .catch(({ response }) => {
+        let message = (response && response.data.message) || "Login error";
+        dispatch({ type: "favourite_post_error", payload: message });
+        alert("Iltimos ro`yhatdan o`ting!");
+        navigate("/login");
+      });
+  };
+
+  const { favouriteList } = useSelector((state) => state.favourite);
+  const favouriteId = favouriteList.map((item) => item.id);
+  const { loading } = useSelector((state) => state.favourite);
+
+  const [isFavourite, setIsFavourite] = useState(false);
 
   useEffect(() => {
     dispatch(fetchIdUser(id));
@@ -39,6 +71,11 @@ const AboutHome = () => {
     requests.viewDacha(id);
   }, []);
 
+  useEffect(() => {
+    if (favouriteId.includes(+id)) {
+      setIsFavourite(true);
+    }
+  }, [favouriteId, favouriteList]);
   const [rating, setRating] = useState(0);
 
   const ratingChanged = (newRating) => {
@@ -49,12 +86,11 @@ const AboutHome = () => {
     id,
     rating,
   };
-
   const userIdHome = useSelector((state) => state.userId.userId);
-  console.log(userIdHome)
 
   return (
     <div>
+      <HelmetReact name={userIdHome.name} description={userIdHome.comment} />
       <HeaderNavbarTop />
       <div className="main">
         <div className="main-content">
@@ -74,8 +110,8 @@ const AboutHome = () => {
                   slideShadows: true,
                 }}
                 pagination={true}
-                modules={[EffectCoverflow, Pagination]}
-                className="mySwiper about-home-swiper"
+                modules={[Pagination]}
+                className="mySwiper"
               >
                 {userIdHome.images?.map((item, idx) => (
                   <SwiperSlide key={idx}>
@@ -86,9 +122,14 @@ const AboutHome = () => {
                 ))}
               </Swiper>
             </div>
+
             <div className="about-home-content">
               <div className="about-home-user-items">
-                <img src={UserImg} alt="" />
+                {userIdHome.owner?.image === null ? (
+                  <img src={ProfileImg} alt="" />
+                ) : (
+                  <img src={`${baseUrl}/${userIdHome.owner?.image}`} alt="" />
+                )}
                 <div className="about-home-user-title">
                   <p className="name">{userIdHome.advertiser_name}</p>
                   <p className="tel">{userIdHome.phone}</p>
@@ -97,13 +138,13 @@ const AboutHome = () => {
               <div className="about-home-category">
                 <p className="sanatoriya">{userIdHome.type?.name_uz}</p>
                 <p className="price-dacha-day">
-                  Ish kunlarida:
+                  {t("IshKunlarida")}:
                   <span>
                     {userIdHome.cost} {userIdHome.currency}
                   </span>
                 </p>
                 <p className="price-dacha-month">
-                  Dam olish kunlarida:
+                  {t("DamOlishKunlarida")}:
                   <span>
                     {userIdHome.weekday_cost} {userIdHome.currency}
                   </span>
@@ -111,30 +152,49 @@ const AboutHome = () => {
               </div>
             </div>
             <div className="udobstva">
-              <p>Qulayliklar</p>
+              <p>{t("Qulayliklar")}</p>
               <div className="about-home-location">
                 <img src={Place} alt="" />
                 <p>{userIdHome?.category?.name_uz}</p>
               </div>
             </div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <MdFavoriteBorder
-              size={30}
-              onClick={() => dispatch(postFavourite(id))}
-            />
+              {isFavourite === true ? (
+                <MdOutlineFavorite
+                  onClick={() => {
+                    dispatch(deleteFavourite(id));
+                    setIsFavourite(false);
+                  }}
+                  size={30}
+                />
+              ) : (
+                <MdFavoriteBorder
+                  size={30}
+                  onClick={() => {
+                    dispatch(postFavourite(id));
+                    setIsFavourite(true);
+                  }}
+                />
+              )}
             </div>
             <div className="about-home-sleep">
               <div className="about-home-sleep-category">
                 <img src={Sleep} alt="" />
-                {userIdHome.room_count} room
+                <p>
+                  {userIdHome.room_count} <span>{t("room")}</span>
+                </p>
               </div>
               <div className="about-home-sleep-category">
                 <img src={Room} alt="" />
-                {userIdHome.bathroom_count} bath-rooms
+                <p>
+                  {userIdHome.bathroom_count} <span>{t("bathRooms")}</span>
+                </p>
               </div>
               <div className="about-home-sleep-category">
                 <img src={People} alt="" />
-                {userIdHome.capacity} people
+                <p>
+                  {userIdHome.capacity} <span>{t("people")}</span>
+                </p>
               </div>
             </div>
             <div
@@ -149,21 +209,21 @@ const AboutHome = () => {
               ))}
             </div>
             <div className="about-home-input">
-              <p>Qo`shimcha ma`lumot</p>
+              <p>{t("QoshimchaMalumot")}</p>
               <div className="about-home-input-title">
                 <div className="about-home-textarea">{userIdHome.comment}</div>
                 <div className="about-home-reyting">
-                  <p>Dachani baholash</p>
+                  <p style={{ marginBottom: "0" }}>{t("DachaniBaholash")}</p>
                   <ReactStars
                     count={5}
                     onChange={ratingChanged}
                     size={30}
                     activeColor="green"
+                    classNames="stars"
                   />
-                  ,
                   <Button
                     showButton={true}
-                    title="Saqlash"
+                    title={t("Saqlash")}
                     padding="5px 80px"
                     onClickButton={() => dispatch(ratingDacha(payload))}
                   />

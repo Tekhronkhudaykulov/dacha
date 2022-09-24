@@ -59,6 +59,8 @@
             position: absolute;
             margin-top: 20px;
             top: 0;
+            left: 0;
+            right: 0;
             @media (min-width: 767px) and (max-width: 1025px){
                 margin-top: 12px;
                 width: -webkit-fill-available;
@@ -89,7 +91,8 @@
                 background-color: white;
                 padding: 5px;
                 border-radius: 5px;
-                margin-left: 240px;
+                margin-left: auto;
+                margin-right: 30px;
                 @media (min-width: 767px) and (max-width: 1025px){
                     margin-left: auto;
                     left: 0;

@@ -19,9 +19,13 @@ import { useForm } from "react-hook-form";
 import { searchDacha } from "../../redux/actions/Dacha/SearchDachaAction";
 import SearchSelect from "../Input/SearchInput/SearchSelect";
 import { dachaCategory } from "../../redux/actions/Dacha/DachaCategoryAction";
+import { useTranslation } from "react-i18next";
+import HelmetReact from "../Helmet";
 
 const SearchHome = () => {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation();
 
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -76,8 +80,9 @@ const SearchHome = () => {
   return (
     <>
       <HeaderNavbarTop />
+      <HelmetReact name="Dacha Rent.uz" description="dachani qidirish" />
       <div className="main-content">
-        <Title title="Dacha qidirish" showButton={true} />
+        <Title title={t("DachaQidirish")} showButton={true} />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             widthImg="30px"
@@ -93,7 +98,7 @@ const SearchHome = () => {
               onChange={(e) => setCategory_id(e.target.value)}
             />
             <SearchInput
-              inputName="Odamlar soni"
+              inputName={t("OdamlarSoni")}
               inputImg={Groups}
               inputPlaceholder="12"
               inputType="number"
@@ -101,7 +106,7 @@ const SearchHome = () => {
               formValue={register("capacity")}
             />
             <SearchInput
-              inputName="Narx (kamida)"
+              inputName={t("NarxKamida")}
               inputImg={Money}
               inputPlaceholder="1,000,000"
               inputType="number"
@@ -109,7 +114,7 @@ const SearchHome = () => {
               formValue={register("cost_from")}
             />
             <SearchInput
-              inputName="Narx (ko`pi bilan)"
+              inputName={t("NarxKopi")}
               inputImg={Money}
               inputPlaceholder="2,000,000"
               inputType="number"
@@ -137,7 +142,7 @@ const SearchHome = () => {
           </div>
           <input type="submit" hidden />
         </form>
-        <Tabs type_id={params.type_id} typeId={setTypeId} />
+        <Tabs type_id={params.type_id} typeId={setTypeId} typeS={typeId} />
         <Footer />
       </div>
     </>

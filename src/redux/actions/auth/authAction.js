@@ -1,5 +1,5 @@
-import { Navigate } from "react-router-dom";
 import requests from "../../../helpers/requests";
+import { toast } from "react-toastify";
 
 export const registerPage = (userInfo) => (dispatch) => {
   dispatch({ type: "register_start", payload: userInfo });
@@ -7,12 +7,10 @@ export const registerPage = (userInfo) => (dispatch) => {
     .register(userInfo)
     .then(({ data }) => {
       dispatch({ type: "register_start_success", payload: data });
-      alert("Registratsiyadan muvaffaqiyatli o`tdiz!");
     })
     .catch(({ response }) => {
       let message = (response && response.data.message) || "Login error";
       dispatch({ type: "register_start_error", payload: message });
-      alert("Registratsiyadan hatolik bo`ldi!");
     });
 };
 
@@ -22,12 +20,12 @@ export const login = (userLogin) => (dispatch) => {
     .login(userLogin)
     .then(({ data }) => {
       dispatch({ type: "login_start_success", payload: data });
-      alert("Hush kelibsiz!");
+      console.log(toast.success);
     })
     .catch(({ response }) => {
       let message = (response && response.data.message) || "Login error";
       dispatch({ type: "login_start_error", payload: message });
-      alert("Login pageda hatolik bor!");
+      toast.error("Hatolik yuz berdi");
     });
 };
 
@@ -37,28 +35,27 @@ export const sms = (params) => (dispatch) => {
     .sms(params)
     .then(({ data }) => {
       dispatch({ type: "sms_start_success", payload: data });
-      alert("Hush kelibsiz!")
+      alert("Hush kelibsiz!");
     })
     .catch(({ response }) => {
       let message = (response && response.data.message) || "Login error";
       dispatch({ type: "sms_start_error", payload: message });
-      alert("Sms codni to`gri tering!")
+      alert("Sms codni to`gri tering!");
     });
 };
-
 
 export const passwordRecover = (params) => (dispatch) => {
   dispatch({ type: "password_Recover_start", payload: params });
   requests
     .passwordRecover(params)
     .then(({ data }) => {
-      dispatch({ type: "password_Recover_start_success", payload: data});
-      alert("Raqam to`g`ri!")
+      dispatch({ type: "password_Recover_start_success", payload: data });
+      alert("Raqam to`g`ri!");
     })
     .catch(({ response }) => {
       let message = (response && response.data.message) || "Login error";
       dispatch({ type: "password_Recover_start_error", payload: message });
-      alert("Bazada bunaqa raqam topilmadi!")
+      alert("Bazada bunaqa raqam topilmadi!");
     });
 };
 
@@ -72,11 +69,9 @@ export const verifyRecover = (params) => (dispatch) => {
     .catch(({ response }) => {
       let message = (response && response.data.message) || "Login error";
       dispatch({ type: "verifyRecover_start_error", payload: message });
-      alert("Sms codni to`gri tering!")
+      alert("Sms codni to`gri tering!");
     });
 };
-
-
 
 export const passwordUpdate = (params) => (dispatch) => {
   dispatch({ type: "passwordUpdate_start", payload: params });
@@ -84,11 +79,11 @@ export const passwordUpdate = (params) => (dispatch) => {
     .passwordUpdate(params)
     .then(({ data }) => {
       dispatch({ type: "passwordUpdate_start_success", payload: data });
-      alert("Parol muvafaqqiyatli o`zgartirildi!")
+      alert("Parol muvafaqqiyatli o`zgartirildi!");
     })
     .catch(({ response }) => {
       let message = (response && response.data.message) || "Login error";
       dispatch({ type: "passwordUpdate_start_error", payload: message });
-      alert("Hatolik bor!")
+      alert("Hatolik bor!");
     });
 };

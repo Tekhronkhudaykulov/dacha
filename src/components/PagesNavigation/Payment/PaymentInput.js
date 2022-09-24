@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const PaymentInput = ({ radioId, price }) => {
+  const { t, i18n } = useTranslation();
+
   return (
     <div className="payment-box">
       <label for={radioId} className="radio">
@@ -10,13 +13,17 @@ const PaymentInput = ({ radioId, price }) => {
           name="mayRadioFiled"
           className="radio_input"
         />
-        <p style={{ marginBottom: 0 }}>{price}sum</p>
+        <p style={{ marginBottom: 0 }}>
+          {price} {t("Sum")}
+        </p>
       </label>
     </div>
   );
 };
 
 const PaymentInputValue = ({ radioId, onChange }) => {
+  const { t, i18n } = useTranslation();
+
   return (
     <div className="payment-box">
       <label for={radioId} className="radio">
@@ -28,7 +35,7 @@ const PaymentInputValue = ({ radioId, onChange }) => {
         />
         <input
           type="number"
-          placeholder="______ sum"
+          placeholder={`______${t("Sum")}`}
           className="inputNumber"
           onChange={onChange}
         />

@@ -1,17 +1,16 @@
 import axios from "axios";
 
-export const baseUrl = `https://api.dachatravel.uz`;
+export const baseUrl = `https://api.dacha-rent.uz`;
 const url = baseUrl + `/api`;
 
 const token = localStorage.getItem("@token");
+
 export const config = {
   headers: {
     Authorization: `Bearer ${token}`,
     Accept: "application/json",
   },
 };
-
-
 
 // let formData = (rawData) => {
 //   let form = new FormData();
@@ -61,7 +60,7 @@ const api = axios.create({
 const requests = {
   register: (userInfo) => api.post(`/register`, userInfo),
   login: (userLogin) => api.post(`/login`, userLogin),
-  topCard: () => api.get(`/top-rated`),
+  topCard: () => api.get(`/dacha`),
   fetchUser: () => api.get(`/user`, { ...config }),
   fetchIdUser: (id) => api.get(`/dacha/${id}`),
   addHome: (params) => api.post(`/dacha`, formData(params), config),
@@ -70,7 +69,8 @@ const requests = {
   comforts: () => api.get(`/comfort`),
   dachaTypeList: () => api.get(`/type-list`),
   viewDacha: (id) => api.post(`/view-add/${id}`),
-  userDachaList: () => api.get(`user/dacha`, { ...config }),
+  userDachaList: () => api.get(`user/dacha?verified=1`, { ...config }),
+  userDachaListVerified: () => api.get(`user/dacha?verified=2`, { ...config }),
   dachaUpdate: (params) =>
     api.post(`dacha/${params.id}`, formData(params), config),
   deleteDacha: (id) =>
@@ -78,14 +78,15 @@ const requests = {
   userUpdate: (params) =>
     api.post(`user-update`, formData(params), config, { _method: "PUT" }),
   premiumDacha: () => api.get(`dacha?premium=1`, { ...config }),
-  postFavourite: (id) => api.post(`favourite-add/${id}`, {...config}),
+  postFavourite: (id) => api.post(`favourite-add/${id}`, null, config),
   getFavourite: () => api.get(`favourite-list`, config),
+  deleteFavourite: (id) => api.delete(`favourite-delete/${id}`, config),
   sms: (params) => api.post(`verify-user`, params),
   ratingDacha: (params) => api.post(`rating-add/${params.id}`, params, config),
   passwordRecover: (params) => api.post(`password-recover`, params),
   verifyRecover: (params) => api.post(`verify-recover`, params),
-  passwordUpdate: (params)  => api.post(`password-update`, params,config),
+  passwordUpdate: (params) => api.post(`password-update`, params, config),
   dachaLevel: (params) => api.post(`dacha-level`, params, config),
-  dachaUp:(params) => api.post(`dacha-up`, params, config)
+  dachaUp: (params) => api.post(`dacha-up`, params, config),
 };
 export default requests;

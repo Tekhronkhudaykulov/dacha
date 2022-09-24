@@ -4,9 +4,11 @@ import "./Main.scss";
 import HeaderNavbarTop from "../../../components/Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import Footer from "../../../components/Footer/Footer";
 import "../../../containers/container.scss";
+import HelmetReact from "../../../components/Helmet";
 const AboutUs = () => {
   return (
     <>
+      <HelmetReact name="Dacha Rent.uz" description="Biz haqimizda" />
       <HeaderNavbarTop />
       <div className="main">
         <div className="main-content">

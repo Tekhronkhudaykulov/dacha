@@ -10,7 +10,8 @@ import { Button } from "../../Buttons/Header/Buttons";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../redux/actions/auth/authAction";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 const token = window.localStorage.getItem("@token");
 
 const Login = () => {
@@ -18,6 +19,7 @@ const Login = () => {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -25,6 +27,8 @@ const Login = () => {
     dispatch(login(data));
   };
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -48,34 +52,39 @@ const Login = () => {
         </div>
         <div className="input-link">
           <div className="login-content">
-            <Title title="Tizimga kirish" showButton={true} />
+            <Title title={t("TizimgaKirish")} showButton={true} />
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="login-input">
-                <p>Tel</p>
+                <p>{t("Tel")}</p>
                 <div className="user-name">
-                {/* <PhoneInput
-                  country={"uz"}
-                  defaultMask={"(..) ...-..-.."}
-                  placeholder="+998"
-                  alwaysDefaultMask={true}
-                  name="phone"
-                /> */}
-                  <input
-                    type="number"
-                    {...register("phone", {
-                      required: true,
-                    })}
+                  <Controller
+                    control={control}
+                    name="phone"
+                    rules={{ required: true }}
+                    render={({ field: { ref, ...field } }) => (
+                      <PhoneInput
+                        {...field}
+                        country={"uz"}
+                        defaultMask={"(..) ...-..-.."}
+                        placeholder="+998"
+                        alwaysDefaultMask={true}
+                        name="phone"
+                        inputExtraProps={{
+                          ref,
+                          required: true,
+                          autoFocus: true,
+                        }}
+                      />
+                    )}
                   />
                 </div>
                 {errors.phone && (
-                  <p className="validation">
-                    Telefon raqam 12ta harfdan iborat bolishi kerak!
-                  </p>
+                  <p className="validation">{t("telValidation")}</p>
                 )}
               </div>
               <div className="login-input">
                 <Input
-                  inputName="Parol"
+                  inputName={t("Parol")}
                   showButton={true}
                   img={Password}
                   inputType="password"
@@ -85,24 +94,22 @@ const Login = () => {
                   })}
                 />
                 {errors.password && (
-                  <p className="validation">
-                    Parol 6ta harfdan koproq bolishi kerak!
-                  </p>
+                  <p className="validation">{t("parolValidation")}</p>
                 )}
               </div>
               <div className="Login-button">
                 <Button
                   showButton={true}
-                  title="Kirish"
+                  title={t("Kirish")}
                   width="250px"
                   height="55px"
                   loading={loading}
                 />
                 <Link to="/restoreProfile">
-                  <UrlTitle title="Ro`yxatdan o`tish" showTitle={true} />
+                  <UrlTitle title={t("Royhatdanotish")} showTitle={true} />
                 </Link>
                 <Link to="/signUp">
-                  <UrlTitle title="Qayta parolni tiklash" showTitle={true} />
+                  <UrlTitle title={t("QaytaParolniTiklash")} showTitle={true} />
                 </Link>
               </div>
             </form>

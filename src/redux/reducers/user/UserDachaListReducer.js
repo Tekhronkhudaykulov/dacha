@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   message: null,
   token: null,
   userDachaList: [],
+  userDachaVerifiedList:[]
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -24,6 +25,24 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         loading: false,
         userDachaList: payload.data.data,
+      };
+      case "user_dacha_list_verified_start":
+      return {
+        ...state,
+        message: "",
+        loading: true,
+      };
+    case "user_dacha_list_verified_error":
+      return {
+        ...state,
+        message: payload,
+        loading: false,
+      };
+    case "user_dacha_list_verified_success":
+      return {
+        ...state,
+        loading: false,
+        userDachaVerifiedList: payload.data.data,
       };
     case "delete_dacha_success":
       return {

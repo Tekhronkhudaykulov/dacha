@@ -1,13 +1,13 @@
 .p{
     font-weight: 500;
-    font-size: 60px;
+    font-size: 45px;
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
-    margin-top: 50px;
     @media (max-width: 769px) {
         font-size: 28px !important;
     } 
+  
 }
 .p-bottom{
     width: 200px;
@@ -15,6 +15,7 @@
     background: linear-gradient(180deg, #02851A 0%, #06C129 100%);
     margin: 0 auto;
     margin-top: 10px;
+    margin-bottom: 0;
     @media (max-width: 769px) {
        width: 30%;
        height: 2px;

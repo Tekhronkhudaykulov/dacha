@@ -7,22 +7,20 @@ import { Title } from "../../Title/Title";
 import { Button } from "../../Buttons/Header/Buttons";
 import { useState } from "react";
 import { verifyRecover } from "../../../redux/actions/auth/authAction";
+import { useTranslation } from "react-i18next";
 
 const SmsRecoverPassword = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const {userRecover} = useSelector((state) => state.register);
+  const { userRecover } = useSelector((state) => state.register);
 
- 
-
+  const { t, i18n } = useTranslation();
   const user_id = userRecover.id;
 
- const navigate = useNavigate()
+  const navigate = useNavigate();
 
-
-
-const [code, setCode] = useState(0);
-const { loading } = useSelector((state) => state.register);
+  const [code, setCode] = useState(0);
+  const { loading } = useSelector((state) => state.register);
 
   return (
     <>
@@ -32,17 +30,13 @@ const { loading } = useSelector((state) => state.register);
           <img src={ProfileImg} alt="" />
         </div>
         <div className="input-link">
-          <div className="login-content" style={{paddingBottom: "45px"}}>
-            <Title
-              title="Sms kodni kiriting!"
-              showButton={true}
-              fonstSize="50px"
-            />
+          <div className="login-content" style={{ paddingBottom: "45px" }}>
+            <Title title={t("SmsTitle")} showButton={true} fonstSize="50px" />
             <div className="login-input" style={{ marginTop: "20px" }}>
               <div className="user-name">
                 <input
                   type="number"
-                  placeholder="Sms kodni kiriting!"
+                  placeholder={t("SmsTitle")}
                   onChange={(e) => setCode(e.target.value)}
                 />
               </div>
@@ -50,11 +44,18 @@ const { loading } = useSelector((state) => state.register);
             <div className="Login-button">
               <Button
                 showButton={true}
-                title="Kirish"
+                title={t("Kirish")}
                 width="250px"
                 height="55px"
                 loading={loading}
-                onClickButton={() => dispatch(verifyRecover({user_id, code}, navigate("/passwordRecover")))}
+                onClickButton={() =>
+                  dispatch(
+                    verifyRecover(
+                      { user_id, code },
+                      navigate("/passwordRecover")
+                    )
+                  )
+                }
               />
             </div>
           </div>
