@@ -4,7 +4,7 @@ import requests from "../../helpers/requests";
 import * as yup from "yup";
 import HeaderNavbarTop from "../../components/Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import { Title } from "../Title/Title";
-import { InputValue } from "../Input/FormInput/Input";
+import { InputValue, InputValue2 } from "../Input/FormInput/Input";
 import Select from "./Select";
 import "./Search.scss";
 import Footer from "../Footer/Footer";
@@ -37,7 +37,7 @@ const schema = yup
   })
   .required();
 
-const AddHome = () => {
+const RenameHome = () => {
   const [active, setActive] = useState("");
   const [hover, setHover] = useState(null);
 
@@ -154,7 +154,7 @@ const AddHome = () => {
                   <button
                     key={key}
                     onClick={() => setTypeId(item.id)}
-                    className={data.type.id == item.id && "active-button"}
+                    className={data.type?.id == item.id && "active-button"}
                     type="button"
                   >
                     {i18n.language == "uz" ? item.name_uz : item.name_ru}
@@ -270,6 +270,82 @@ const AddHome = () => {
               </div>
               <div className="all-price">
                 <div className="about-data">
+                  {type_id === 4 ? (
+                    <>
+                      <InputValue2
+                        inputValue={t("Price")}
+                        placeholder={currency === "y.e" ? "1000 $" : "1000 uzs"}
+                        height="65px"
+                        widght="300px"
+                        type="number"
+                        width="350px"
+                        plusClass="home-input-style"
+                        formProps={register("cost")}
+                      />
+                      <div className="about-data1">
+                        <InputValue
+                          inputValue={t("Price")}
+                          value="0"
+                          placeholder={
+                            currency === "y.e" ? "1000 $" : "1000 uzs"
+                          }
+                          height="65px"
+                          width="350px"
+                          type="number"
+                          plusClass="home-input-style"
+                          formProps={register("weekday_cost")}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <InputValue
+                        inputValue={t("IshKunlarida1")}
+                        placeholder={currency === "y.e" ? "1000 $" : "1000 uzs"}
+                        height="65px"
+                        widght="300px"
+                        type="number"
+                        width="350px"
+                        plusClass="home-input-style"
+                        formProps={register("cost")}
+                      />
+                      <div className="about-data1">
+                        <InputValue
+                          inputValue={t("DamOlishKunlarida1")}
+                          placeholder={
+                            currency === "y.e" ? "1000 $" : "1000 uzs"
+                          }
+                          height="65px"
+                          width="350px"
+                          type="number"
+                          plusClass="home-input-style"
+                          formProps={register("weekday_cost")}
+                        />
+                      </div>
+                    </>
+                  )}
+
+                  <div className="dacha-valuta">
+                    <p style={{ marginBottom: "5px" }}>{t("Valyuta")}</p>
+                    <div className="dollar">
+                      <button
+                        onClick={() => setCurrency("y.e")}
+                        className={currency === "y.e" ? "active" : null}
+                        type="button"
+                      >
+                        y.e
+                      </button>
+                      <button
+                        onClick={() => setCurrency("so`m")}
+                        className={currency === "so`m" ? "active" : null}
+                        type="button"
+                      >
+                        uzs
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="about-data">
                   <InputValue
                     inputValue={t("IshKunlarida1")}
                     height="65px"
@@ -312,7 +388,7 @@ const AddHome = () => {
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="dacha-button">
@@ -346,4 +422,4 @@ const AddHome = () => {
   );
 };
 
-export default AddHome;
+export default RenameHome;

@@ -29,7 +29,11 @@ const Categories = () => {
   };
 
   return (
-    <div className="categories-content">
+    <div
+      className="categories-content"
+      id="categories"
+      style={{ paddingTop: "30px" }}
+    >
       <Title showButton={true} title={t("category")} />
       {loading ? (
         <LoadingCard />

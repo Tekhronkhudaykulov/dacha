@@ -1,8 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../Buttons/Header/Buttons";
 import "./Payment.scss";
-import HeaderLogo from "../../../assets/img/2222.png";
+import HeaderLogo from "../../../assets/img/Layer 6.png";
 import { useNavigate } from "react-router-dom";
 import requests from "../../../helpers/requests";
 import { useTranslation } from "react-i18next";
@@ -23,12 +23,14 @@ const PaymentCards = ({
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
+  const userInfor = useSelector((state) => state.user.userSite);
+
   const navigate = useNavigate();
 
   const dachaLevel = (params) => (dispatch) => {
     dispatch({ type: "dachaLevel_start", payload: params });
     requests
-      .dachaLevel(params)
+      .dachaUp(params)
       .then(({ data }) => {
         dispatch({ type: "dachaLevel_success", payload: data, _method: "PUT" });
         navigate("/user");
@@ -74,7 +76,11 @@ const PaymentCards = ({
           showButton={true}
           title={buttonTitle}
           padding={buttonPadding}
-          onClickButton={() => dispatch(dachaLevel({ dacha_id: id, type: 1 }))}
+          onClickButton={() =>
+            userInfor.balance < 7000
+              ? alert(t("mablag"))
+              : dispatch(dachaLevel({ dacha_id: id, type: 1 }))
+          }
         />
       </div>
     </div>
@@ -97,10 +103,11 @@ const PaymentCards2 = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const userInfor = useSelector((state) => state.user.userSite);
   const dachaUp = (params) => (dispatch) => {
     dispatch({ type: "dachaUp_start", payload: params });
     requests
-      .dachaUp(params)
+      .dachaLevel(params)
       .then(({ data }) => {
         dispatch({ type: "dachaUp_success", payload: data, _method: "PUT" });
         navigate("/user");
@@ -146,7 +153,11 @@ const PaymentCards2 = ({
           showButton={true}
           title={buttonTitle}
           padding={buttonPadding}
-          onClickButton={() => dispatch(dachaUp({ dacha_id: id }))}
+          onClickButton={() =>
+            userInfor.balance < 50000
+              ? alert(t("mablag"))
+              : dispatch(dachaUp({ dacha_id: id }))
+          }
         />
       </div>
     </div>
@@ -189,13 +200,15 @@ const PaymentCards3 = ({
     <div className="payment-card">
       <div className="payment-item">
         <img className="payment-img" src={HeaderLogo} alt="" />
+        <h3 style={{ marginBottom: 0 }}> +998(98)126-00-37</h3>
+        <h3> +998(33)905-75-70</h3>
         <p className="payment-description">{paymentDescription}</p>
       </div>
       <p
         style={{
           textAlign: "center",
           marginTop: "20px",
-          fontSize: "20px",
+          fontSize: "16px",
           fontWeight: "bold",
         }}
       >

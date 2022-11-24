@@ -37,18 +37,21 @@
             // grid-template-columns: repeat(1, 1fr);
             margin: 30px 0;
             gap: 10px 16px;
+            padding: 0;
         }
         @media(max-width:1024px){
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             margin: 30px 0;
             gap: 10px 16px;
+            padding: 0;
         }
         @media(max-width:576px){
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             margin: 30px 0;
             gap: 10px 16px;
+            padding: 0;
         }
     }
     .input-checkbox{
@@ -64,11 +67,18 @@
     margin-top: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    margin-top: -100px;
     @media (max-width: 1024px){
         display: flex;
         align-items: center;
         justify-content: flex-end;
+    }
+    @media(max-width:1024px){
+        margin-top: 10px;
+    }
+    @media(max-width:576px){
+       margin-top: 10px;
     }
 
 }

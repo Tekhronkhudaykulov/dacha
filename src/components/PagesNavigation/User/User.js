@@ -45,7 +45,9 @@ const User = () => {
 
   const { TabPane } = Tabs;
 
-  const onChange = (key) => {};
+  const onChange = (key) => {
+    console.log(key);
+  };
   return (
     <>
       <HelmetReact name={userInfor.name} description="Dacha Rent.uz" />
@@ -60,7 +62,7 @@ const User = () => {
             )}
             <div className="user-name">
               <p>{userInfor.name}</p>
-              {userInfor.isIntermediary === 1 && <img src={Succes} alt="" />}
+              {userInfor.role_id === 2 && <img src={Succes} alt="" />}
             </div>
             {userInfor.isIntermediary === 1 && (
               <p className="user-description">{t("Vositachi")}</p>
@@ -102,8 +104,10 @@ const User = () => {
                         {userInfor.name} {t("searchDachaTitle")}
                       </p>
                     ) : (
-                      userDachaVerifiedList.map((item, key) => (
-                        <CardTop product={item} propsBack />
+                      userDachaVerifiedList.map((item, ind) => (
+                        <div key={ind}>
+                          <CardTop product={item} propsBack />
+                        </div>
                       ))
                     )}
                   </div>
@@ -119,8 +123,10 @@ const User = () => {
                         {userInfor.name} {t("searchDachaTitle")}
                       </p>
                     ) : (
-                      userDachaList.map((item, key) => (
-                        <CardTop product={item} propsBack editProps />
+                      userDachaList.map((item, index) => (
+                        <div key={index}>
+                          <CardTop product={item} propsBack editProps />
+                        </div>
                       ))
                     )}
                   </div>
@@ -136,8 +142,10 @@ const User = () => {
                         {userInfor.name} {t("searchDachaTitle")}
                       </p>
                     ) : (
-                      favouriteList.map((item, key) => (
-                        <CardTop product={item} deleteProps />
+                      favouriteList.map((item, inda) => (
+                        <div key={inda}>
+                          <CardTop product={item} propsBack deleteProps />
+                        </div>
                       ))
                     )}
                   </div>

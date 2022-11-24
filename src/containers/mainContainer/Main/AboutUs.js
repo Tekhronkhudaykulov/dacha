@@ -15,26 +15,29 @@ const AboutUs = () => {
           <div className="about">
             <Title title="Biz haqimizda" showButton={true} margin="0" />
             <p className="about-text">
-              DachaTravel.uz – это портал, который представляет собой площадку
-              онлайн бронирования гостиниц, санаториев, зон отдыха, коттеджей и
-              дач в Узбекистане, а также выбор туров за рубежом и бронирование
-              услуг гидов. Наш портал помогает путешественникам и отдыхающим
-              найти лучшие номера по выгодной цене. <br /> <br /> На нашем сайте
-              Вы найдете место отдыха для себя и своей семьи, гостиницу или
-              отель​ для командировок, сможете забронировать номер, в любое
-              время из любой точки Узбекистана. Оплатить бронь можно не выходя
-              из дома, используя свою кредитную карту. <br />
-              <br />
-              Damda.Uz позволяет получать информацию о наличии номеров и
-              стоимости kпроживания, а также сравнивать цены и выбирать наиболее
-              подходящие варианты. Отзывы посетителей помогут Вам определиться с
-              выбором оптимального варианта. Информация о ценах и количестве
-              номеров доступных для брони через сайт выставляется администрацией
-              гостиниц, зон отдыха или санаториев и соответствуют прейскуранту
-              объектов. <br /> <br /> Мы также предлагаем Вам воспользоваться
-              нашей электронной площадкой для записи на прием к врачу -
-              MedPlaza.Uz и посетить интернет-магазин продуктов питания и
-              товаров для дома GoMart.uz.
+              DachaRent.uz portali – O‘zbekistondagi eng zamonaviy dam olish
+              uylari, dam olish maskanlari, kottejlar, yozgi va qishgi uylarni
+              onlayn bron qilish platformasi. Portalimiz sayohatchilar va dam
+              oluvchilarga eng yaxshi narxlarda eng yaxshi yozgi va qishgi dam
+              olish uylarini topishda yaqindan ko’mak beradi. Sahifamizda siz
+              o'zingiz va oilangiz uchun eng zamonaviy Hi-Tech uslubidagi
+              zamonaviy uylardan tortib klassik uylargacha topashingiz mumkin.
+              O'zbekistonning istalgan nuqtasidan istalgan vaqtda dam olish
+              uylarini bron qilishingiz mumkin. Plastik kartangiz yordamida
+              uydan chiqmagan holda bron qilish imkoniyati (sayt ma’muriyati
+              faqat o’ziga qabul qilingan to’lovlar uchun javobgarlikni
+              zimmasiga oladi!). DachaRent.uz sizga yozgi uylarning keng
+              tanlovlari va yashash narxlari haqida ma'lumot olish, shuningdek
+              narxlarni solishtirish va o'zingizga maqul kelgan dam olish
+              uylarini tanlash imkoniyatini beradi. Mehmonlarning sharhlari
+              sizga eng yaxshi dam olish uylarini tanlashga yordam beradi. Undan
+              tashqari tanlov ko'pligi sababli tanlashda qiynalsangiz
+              konsultantlarimiz bilan bog'laning, ular sizning hohishingizga mos
+              ravishda mavsumiy dam olish uylarini tavsiya qiladi. Har bir yozgi
+              uylarda maroqli hordiq chiqarishingiz uchun kerakli bo'lgan barcha
+              sharoyitlar mavjud: keng va yorug' xonalar, qishki va yozgi
+              basseynlar, ko'ngilochar mashg'ulotlar uchun barcha jihozlar,
+              qishki va yozgi oshxona va hokazolar.
             </p>
           </div>
           <Footer />

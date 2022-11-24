@@ -18,12 +18,7 @@ const PaymentCard = () => {
   return (
     <div className="paymentForm">
       <form className="payment-item-card">
-        <input
-          type="number"
-          name="number"
-          placeholder={t("cardNumber")}
-          onChange={handleInputChange}
-        />
+        <input type="number" name="number" onChange={handleInputChange} />
       </form>
       <p className="balance">
         Balans: {userInfor.balance} {t("Sum")}

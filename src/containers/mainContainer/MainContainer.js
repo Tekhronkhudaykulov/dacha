@@ -140,15 +140,15 @@ const MainContainer = () => {
               width="265px"
               formValue={register("cost_to")}
             />
-            <div className="div">
-              <Button
-                variant="success"
-                type="submit"
-                style={{ marginTop: "auto", height: "55px", width: "55px" }}
-              >
-                <AiOutlineSearch size={30} />
-              </Button>
-            </div>
+          </div>
+          <div className="div">
+            <Button
+              variant="success"
+              type="submit"
+              style={{ marginTop: "auto", height: "55px", width: "55px" }}
+            >
+              <AiOutlineSearch size={30} />
+            </Button>
           </div>
         </form>
         <Categories />

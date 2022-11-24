@@ -1,7 +1,7 @@
 import React from "react";
-import HeaderItemsImg from "../../../assets/img/X212.png";
+import HeaderItemsImg from "../../../assets/img/Layer 6.png";
 import ".././Navbar.scss";
-import bgVideo from "../../../assets/bgVideo/videoBg.mp4";
+import bgVideo from "../../../assets/bgVideo/charvak.mp4";
 import Facebook from "../../../assets/img/f.png";
 import Instagramm from "../../../assets/img/i.png";
 import Telegramm from "../../../assets/img/t.png";
@@ -26,19 +26,34 @@ const HeaderNavbarBottom = () => {
         <HelmetReact name="Dacha Rent.uz" description={t("logo")} />
       </div>
       <div className="sotsial">
-        <a className="sotsial-item" href="https://myurls.co/dacharent.uz">
+        <a
+          className="sotsial-item"
+          href="https://myurls.co/dacharent.uz/links/624f702068c233003268bbd7/click"
+        >
           <img src={Telegramm} alt="" />
         </a>
-        <a className="sotsial-item" href="https://myurls.co/dacharent.uz">
+        <a
+          className="sotsial-item"
+          href="https://myurls.co/dacharent.uz/links/624f704e68c233003268bbd9/click"
+        >
           <img src={Instagramm} alt="" />
         </a>
-        <a className="sotsial-item" href="https://myurls.co/dacharent.uz">
+        <a
+          className="sotsial-item"
+          href=" https://myurls.co/dacharent.uz/links/624f71de68c233002d68bb8c/click"
+        >
           <img src={Facebook} alt="" />
         </a>
-        <a className="sotsial-item" href="https://myurls.co/dacharent.uz">
+        <a
+          className="sotsial-item"
+          href="https://myurls.co/dacharent.uz/links/624f710e68c233002d68bb85/click"
+        >
           <img src={Youtube} alt="" />
         </a>
-        <a className="sotsial-item" href="https://myurls.co/dacharent.uz">
+        <a
+          className="sotsial-item"
+          href="https://myurls.co/dacharent.uz/links/624f71de68c233002d68bb8c/click"
+        >
           <img src={WhatSap} alt="" />
         </a>
       </div>

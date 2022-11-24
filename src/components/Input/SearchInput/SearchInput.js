@@ -91,13 +91,7 @@ const SearchChecbox = ({
         style={{ width: width, marginLeft: margin }}
       >
         <p style={{ margin: "0 20px" }}>{title}</p>
-        <input
-          onClick={onClick}
-          onChange={(e) => onChange(e.target.checked)}
-          type="checkbox"
-          id={id}
-          name="ttt"
-        />
+        <input onClick={onClick} id={id} name="ttt" />
         <label for={label}></label>
       </div>
     </>

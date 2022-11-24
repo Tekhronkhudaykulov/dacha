@@ -13,7 +13,6 @@ import { userUpdate } from "../../../redux/actions/user/UserUpdateAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import ProfileImg from "../../../assets/img/profilImg.jpeg";
-
 import { baseUrl } from "../../../helpers/requests";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -91,7 +90,8 @@ const Profile = () => {
   };
 
   const [value, setValue] = useState([]);
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState();
+
   const [isIntermediary, setIsIntermediary] = useState(0);
 
   return (

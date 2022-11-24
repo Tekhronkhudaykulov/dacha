@@ -28,9 +28,10 @@ const Footer = () => {
             fonstSize="40px"
             showButton={true}
           />
-          <p>{t("HarKuni")} 08:00 - 18:00</p>
-          <p>+998 (90) 123-45-67</p>
-          <p>+998 (90) 765-43-21</p>
+          <p>{t("HarKuni")} 08:00 - 22:00</p>
+
+          <p> +998(98)126-00-37 </p>
+          <p> +998(33)905-75-70</p>
         </div>
         <div className="footer-text">
           <Title title={t("Download")} fonstSize="40px" showButton={true} />

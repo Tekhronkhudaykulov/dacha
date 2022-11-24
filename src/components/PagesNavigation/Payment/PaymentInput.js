@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const PaymentInput = ({ radioId, price }) => {
+const PaymentInput = ({ radioId, price, onChange, value }) => {
   const { t, i18n } = useTranslation();
 
   return (
@@ -12,6 +12,8 @@ const PaymentInput = ({ radioId, price }) => {
           id={radioId}
           name="mayRadioFiled"
           className="radio_input"
+          onChange={onChange}
+          value={value}
         />
         <p style={{ marginBottom: 0 }}>
           {price} {t("Sum")}

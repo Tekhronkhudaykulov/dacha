@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeaderNavbarTop from "../../Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import PaymentImg from "../../../assets/img/paymentImgOne.png";
 import PaymentImgTwo from "../../../assets/img/PaymentImgTwo.png";
 import { PaymentCards, PaymentCards2, PaymentCards3 } from "./PaymentCards";
 import { useParams } from "react-router-dom";
-import PaymentCard from "./PaymentCard";
+// import PaymentCard from "./PaymentCard";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../../redux/actions/user/userAction";
 
 const AdvertiseCottage = () => {
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const { t, i18n } = useTranslation();
+
+  const userInfor = useSelector((state) => state.user.userSite);
+
+  console.log(userInfor);
 
   return (
     <div>
@@ -20,7 +28,7 @@ const AdvertiseCottage = () => {
             <PaymentCards
               paymentImg={PaymentImg}
               paymentDescription={t("title")}
-              paymentPrice="5000"
+              paymentPrice="7 000"
               paymentCount={t("title3")}
               checkboxTitle={t("title5")}
               checkboxLable="one"
@@ -33,7 +41,7 @@ const AdvertiseCottage = () => {
             <PaymentCards2
               paymentImg={PaymentImgTwo}
               paymentDescription={t("title2")}
-              paymentPrice="40 000"
+              paymentPrice="50 000"
               paymentCount={t("title4")}
               checkboxTitle={t("title6")}
               checkboxLable="two"
@@ -45,7 +53,7 @@ const AdvertiseCottage = () => {
             />
             <PaymentCards3
               paymentImg={PaymentImgTwo}
-              checkboxTitle="Qayta aloqa"
+              checkboxTitle="Premium e`lonlar sayt administratorlari tomonidan kelishuv asosida joylanadi!"
               checkboxWidth="400px"
               buttonTitle="Qayta aloqa"
               buttonPadding="5px 30px"

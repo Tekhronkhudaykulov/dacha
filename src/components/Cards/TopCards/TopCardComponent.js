@@ -10,8 +10,7 @@ import { deleteFavourite } from "../../../redux/actions/Card/FavouriteAction";
 import { AiOutlineDelete } from "react-icons/ai";
 import { baseUrl } from "../../../helpers/requests";
 import "../cards.scss";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NoPhoto from "../../../assets/img/nophoto.png";
 import { useDispatch } from "react-redux";
 
@@ -23,11 +22,11 @@ const CardTop = ({
   editProps,
   deleteProps,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   return (
     <>
       <div className="card1" onClick={onclick} style={{ margin: margin }}>
@@ -76,7 +75,6 @@ const CardTop = ({
                 <p className="location-name">{product.category.name_uz}</p>
               </div>
             )}
-
             {editProps && (
               <div className="card-delete">
                 <MdDriveFileRenameOutline

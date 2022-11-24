@@ -4,7 +4,7 @@ import requests from "../../helpers/requests";
 import * as yup from "yup";
 import HeaderNavbarTop from "../../components/Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import { Title } from "../Title/Title";
-import { InputValue } from "../Input/FormInput/Input";
+import { InputValue, InputValue2 } from "../Input/FormInput/Input";
 import PhoneInput from "react-phone-input-2";
 import Select from "./Select";
 import "./Search.scss";
@@ -21,20 +21,18 @@ import { SearchChecbox } from "../Input/SearchInput/SearchInput";
 import { useTranslation } from "react-i18next";
 import HelmetReact from "../Helmet";
 
-const schema = yup
-  .object({
-    name: yup.string().required(),
-    category_id: yup.number().positive().integer().required(),
-    room_count: yup.number().required(),
-    capacity: yup.number().required(),
-    bathroom_count: yup.number().required(),
-    comment: yup.string().required(),
-    advertiser_name: yup.string().required(),
-    phone: yup.number().required(),
-    cost: yup.number().required(),
-    weekday_cost: yup.number().required(),
-  })
-  .required();
+const schema = yup.object({
+  name: yup.string().required(),
+  category_id: yup.number().positive().integer().required(),
+  room_count: yup.number().required(),
+  capacity: yup.number().required(),
+  bathroom_count: yup.number().required(),
+  comment: yup.string().required(),
+  advertiser_name: yup.string().required(),
+  phone: yup.number().required(),
+  cost: yup.number().required(),
+  weekday_cost: yup.number().required(),
+});
 
 const AddHome = () => {
   const [active, setActive] = useState("");
@@ -69,17 +67,6 @@ const AddHome = () => {
   const type = useSelector((state) => state.typeList.dachaTypeList);
   const { comfortsList } = useSelector((state) => state.comforts);
 
-  const onSubmit = (data) => {
-    const payload = {
-      ...data,
-      type_id,
-      comforts,
-      image_path: images.map((item) => item.originFileObj),
-      currency,
-    };
-    dispatch(addHome(payload));
-  };
-
   const addHome = (payload) => (dispatch) => {
     dispatch({ type: "add_home_start", payload });
     requests
@@ -92,15 +79,31 @@ const AddHome = () => {
       .catch(({ response }) => {
         let message = (response && response.data.message) || "Login error";
         dispatch({ type: "add_home_error", payload: message });
-        alert("Dacha qo`shishda hatolik bor !");
-        navigate("/addHome");
+        alert(t("addHomeVerification"));
+        navigate("/payment");
       });
   };
 
   const [type_id, setTypeId] = useState();
+
   const [comforts, setComforts] = useState([]);
   const [images, setImages] = useState([]);
   const [currency, setCurrency] = useState("so`m");
+
+  const onSubmit = (data) => {
+    const payload = {
+      ...data,
+      type_id,
+      comforts,
+      image_path: images.map((item) => item.originFileObj),
+      currency,
+    };
+    dispatch(addHome(payload));
+    // console.log({
+    //   ...data,
+    //   type_id,
+    // });
+  };
 
   const { loading } = useSelector((state) => state.addHome);
 
@@ -294,33 +297,61 @@ const AddHome = () => {
               </div>
               <div className="all-price">
                 <div className="about-data">
-                  <InputValue
-                    inputValue={t("IshKunlarida1")}
-                    placeholder={currency === "uzs" ? "1000 uzs" : "1000 $"}
-                    height="65px"
-                    widght="300px"
-                    type="number"
-                    width="350px"
-                    plusClass="home-input-style"
-                    formProps={register("cost")}
-                  />
-                  {errors.cost && (
-                    <p className="validation">Malumotlarni kiriting!</p>
+                  {type_id === 4 ? (
+                    <>
+                      <InputValue2
+                        inputValue={t("Price")}
+                        placeholder={currency === "y.e" ? "1000 $" : "1000 uzs"}
+                        height="65px"
+                        widght="300px"
+                        type="number"
+                        width="350px"
+                        plusClass="home-input-style"
+                        formProps={register("cost")}
+                      />
+                      <div className="about-data1">
+                        <InputValue
+                          inputValue={t("Price")}
+                          value="0"
+                          placeholder={
+                            currency === "y.e" ? "1000 $" : "1000 uzs"
+                          }
+                          height="65px"
+                          width="350px"
+                          type="number"
+                          plusClass="home-input-style"
+                          formProps={register("weekday_cost")}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <InputValue
+                        inputValue={t("IshKunlarida1")}
+                        placeholder={currency === "y.e" ? "1000 $" : "1000 uzs"}
+                        height="65px"
+                        widght="300px"
+                        type="number"
+                        width="350px"
+                        plusClass="home-input-style"
+                        formProps={register("cost")}
+                      />
+                      <div className="about-data1">
+                        <InputValue
+                          inputValue={t("DamOlishKunlarida1")}
+                          placeholder={
+                            currency === "y.e" ? "1000 $" : "1000 uzs"
+                          }
+                          height="65px"
+                          width="350px"
+                          type="number"
+                          plusClass="home-input-style"
+                          formProps={register("weekday_cost")}
+                        />
+                      </div>
+                    </>
                   )}
-                  <div className="about-data1">
-                    <InputValue
-                      inputValue={t("DamOlishKunlarida1")}
-                      placeholder={currency === "uzs" ? "2000 uzs" : "2000 $"}
-                      height="65px"
-                      width="350px"
-                      type="number"
-                      plusClass="home-input-style"
-                      formProps={register("weekday_cost")}
-                    />
-                    {errors.weekday_cost && (
-                      <p className="validation">Malumotlarni kiriting!</p>
-                    )}
-                  </div>
+
                   <div className="dacha-valuta">
                     <p style={{ marginBottom: "5px" }}>{t("Valyuta")}</p>
                     <div className="dollar">
@@ -350,6 +381,7 @@ const AddHome = () => {
                 width="170px"
                 height="50px"
                 loading={loading}
+                type="submit"
               />
             </div>
           </form>

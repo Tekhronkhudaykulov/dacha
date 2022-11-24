@@ -10,6 +10,10 @@ export const uzb = {
   logo: "Online dacha marketplace",
   //header img logo end
 
+  mablag: "Mablag yetarli emas!",
+
+  addHomeVerification:
+    "kkinchi e'lonni joylashtirish - pullik!Bepul reklamalar chegarasiga yetdi!Davom etish uchun hisobingizni 10.000 ming so‘mga to‘ldiring!",
   //tite
   category: "Bo`limlar",
   premium: "Premium e`lonlar",
@@ -55,6 +59,8 @@ export const uzb = {
   OdamlarSoni: "Odamlar soni",
   NarxKamida: "Narx (kamida)",
   NarxKopi: "Narx (ko`pi bilan)",
+  Price: "Narx",
+
   //input search title end
 
   //input title
@@ -86,9 +92,9 @@ export const uzb = {
   //verifikatsiya
   verifikation: "Verifikatsiya nima",
   verifikationItems:
-    "Verifikatsiya bu sizning vositachi emasligingizni yani makler emasligingizni belgisi. Ushbu belgini olganingizdan song siz vositachi emasligingizni tastiqlaysiz va sizning barcha elolaringiz tezroq tekshuruvdan otadi.",
+    "Verifikatsiya bu DachaRent.uz mijozlariga sizning vositachi emasligingiz hamda e’lon berilgan mehmon uyining asl egasi ekanligingizni aniqlash imkonini beradi.Mahsus belgi saytda e’lon beruvchining shaxsiy sahifasiga sayt administratorlari tomonidan egalik huquqini tekshirish asosida taqdim etiladi va doimiy nazorat ostida bo’ladi!Mahsus belgini olish tartibi haqida to’liq ma’lumotlarni quyidagi: +998(98)126-00-37 +998(33)905-75-70 raqamlari orqali hamda ijtimoiy tarmoqlardagi sahifalarimizga murojaat qilish orqali aniqlashingiz mumkin!Diqqat!!! Agarda siz mahsus belgi olganingizdan so’ng e’lonlaringiz orasidan egalik huquqi sizga tegishli bo’lmagan mehmon uylarini joylayotganingiz aniqlansa ushbu e’lon sayt moderatorlari tomonidan rad etiladi va kelgusida ushbu holat qayta takrorlansa sizdan mahsus egalik belgisi sayt administratorlari tomonidan olib qo’yilib shaxsiy sahifangiz vositachi maqomiga qaytariladi!",
   verifikationItems2:
-    "Verifikatsiya bu DachaRent.uz mijozlariga sizning vositachi emasligingiz hamda e’lon berilgan mehmon uyining asl egasi ekanligingizni aniqlash imkonini beradi.Mahsus belgi saytda e’lon beruvchining shaxsiy sahifasiga sayt administratorlari tomonidan egalik huquqini tekshirish asosida taqdim etiladi va doimiy nazorat ostida bo’ladi!Mahsus belgini olish tartibi haqida to’liq ma’lumotlarni quyidagi telefon raqamlar: +998(xx)xxx-xx-xx orqali hamda ijtimoiy tarmoqlardagi sahifalarimizga murojaat qilish orqali aniqlashingiz mumkin!Diqqat!!! Agarda siz mahsus belgi olganingizdan so’ng e’lonlaringiz orasidan egalik huquqi sizga tegishli bo’lmagan mehmon uylarini joylayotganingiz aniqlansa ushbu e’lon sayt moderatorlari tomonidan rad etiladi va kelgusida ushbu holat qayta takrorlansa sizdan mahsus egalik belgisi sayt administratorlari tomonidan olib qo’yilib shaxsiy sahifangiz vositachi maqomiga qaytariladi!",
+    "Mahsus belgini olish tartibi haqida to’liq ma’lumotlarni quyidagi:  +998(98)126-00-37 +998(33)905-75-70 raqamlari orqali hamda ijtimoiy tarmoqlardagi sahifalarimizga murojaat qilish orqali aniqlashingiz mumkin!",
   //verifikatsiya end
 
   //payment
@@ -100,8 +106,8 @@ export const uzb = {
   title2: "Tez sotuv",
   title3: "4x koproq kuzatuvlar",
   title4: "8x koproq kuzatuvlar",
-  title5: "TOP elonlar 7 kunga",
-  title6: "E`lonni 1 haftalik Top ga kotarish",
+  title5: "E`lonni yangilash",
+  title6: "Top e`lon 7 kun",
   //advertiseCottage end
 
   //aboutHome

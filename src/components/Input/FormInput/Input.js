@@ -18,7 +18,7 @@ const Input = ({
           <p>{inputName}</p>
           <div className="user-name">
             <img src={img} alt="" />
-            <input {...formProps} type={inputType} onChange={onChange}/>
+            <input {...formProps} type={inputType} onChange={onChange} />
           </div>
         </>
       ) : null}
@@ -41,16 +41,20 @@ const InputValue = ({
   top,
   marginInput,
   onchange,
-  value,
+  defaultValue,
   formProps,
   name,
   addCLass = "profile-input-child",
   plusClass,
+  value,
 }) => {
   const [inputPlaceholder, setInputPlaceholder] = useState(showValue);
 
   return (
-    <div className={`login-input ${addCLass} ${plusClass}`} style={{ margin: margin, width: width }}>
+    <div
+      className={`login-input ${addCLass} ${plusClass}`}
+      style={{ margin: margin, width: width }}
+    >
       <>
         <p>{inputValue}</p>
         <div className="user-name" style={{ width: width, height: height }}>
@@ -78,4 +82,57 @@ const InputValue = ({
   );
 };
 
-export { Input, InputValue };
+const InputValue2 = ({
+  inputValue,
+  type,
+  margin,
+  width,
+  height,
+  placeholder,
+  position,
+  opacity,
+  heightInput,
+  widghtInput,
+  showValue = false,
+  top,
+  marginInput,
+  value,
+  formProps,
+  addCLass = "profile-input-child",
+  plusClass,
+}) => {
+  const [inputPlaceholder, setInputPlaceholder] = useState(showValue);
+
+  return (
+    <div
+      className={`login-input ${addCLass} ${plusClass}`}
+      style={{ margin: margin, width: width }}
+    >
+      <>
+        <p>{inputValue}</p>
+        <div className="user-name" style={{ width: width, height: height }}>
+          <input
+            multiple
+            type={type}
+            value={value}
+            placeholder={placeholder}
+            {...formProps}
+            style={{
+              position: position,
+              height: heightInput,
+              opacity: opacity,
+              width: widghtInput,
+              top: top,
+              marginLeft: marginInput,
+            }}
+          />
+        </div>
+        {inputPlaceholder ? (
+          <p className="inputPlaceholder">Rasm yuklash uchun ustiga bosing</p>
+        ) : null}
+      </>
+    </div>
+  );
+};
+
+export { Input, InputValue, InputValue2 };

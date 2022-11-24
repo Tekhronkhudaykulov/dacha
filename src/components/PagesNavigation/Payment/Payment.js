@@ -29,6 +29,7 @@ const Payment = () => {
   const userInfor = useSelector((state) => state.user.userSite);
   const userId = userInfor.id;
   const [amount, setAmount] = useState("");
+  console.log(amount);
   return (
     <div className="payment">
       <HeaderNavbarTop />
@@ -40,10 +41,24 @@ const Payment = () => {
 
           <div className="card-radio">
             <div className="allRadio">
-              <PaymentInput radioId="radio1" price="6 000" />
-              <PaymentInput radioId="radio2" price="50 000 " />
-              <PaymentInput radioId="radio3" price="160 000" />
-              <PaymentInput radioId="radio4" price="160 000" />
+              <PaymentInput
+                onChange={(e) => setAmount(e.target.value)}
+                radioId="radio1"
+                price="10 000"
+                value={"10000"}
+              />
+              <PaymentInput
+                onChange={(e) => setAmount(e.target.value)}
+                radioId="radio2"
+                price="50 000"
+                value={"50000"}
+              />
+              <PaymentInput
+                onChange={(e) => setAmount(e.target.value)}
+                radioId="radio3"
+                price="100 000"
+                value={"100000"}
+              />
               <PaymentInputValue
                 radioId="radio5"
                 onChange={(e) => setAmount(e.target.value)}

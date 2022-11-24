@@ -3,7 +3,8 @@ import ReactStars from "react-rating-stars-component";
 import HeaderNavbarTop from "../Navbar/HeaderNavbarTop/HeaderNavbarTop";
 import { Title } from "../Title/Title";
 import "./Search.scss";
-import UserImg from "../../assets/img/Ellipse 4.png";
+import Succes from "../../assets/img/succes.png";
+// import UserImg from "../../assets/img/Ellipse 4.png";
 import Place from "../../assets/img/place.png";
 import Sleep from "../../assets/img/sleep.png";
 import Room from "../../assets/img/people.png";
@@ -87,6 +88,7 @@ const AboutHome = () => {
     rating,
   };
   const userIdHome = useSelector((state) => state.userId.userId);
+  console.log(userIdHome);
 
   return (
     <div>
@@ -131,24 +133,50 @@ const AboutHome = () => {
                   <img src={`${baseUrl}/${userIdHome.owner?.image}`} alt="" />
                 )}
                 <div className="about-home-user-title">
-                  <p className="name">{userIdHome.advertiser_name}</p>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <p className="name" style={{ marginTop: "0px" }}>
+                      {userIdHome.advertiser_name}
+                    </p>
+                    {userIdHome.owner?.role_id === 2 && (
+                      <img
+                        style={{ width: "30px", height: "30px" }}
+                        src={Succes}
+                        alt=""
+                      />
+                    )}
+                  </div>
                   <p className="tel">{userIdHome.phone}</p>
                 </div>
               </div>
               <div className="about-home-category">
-                <p className="sanatoriya">{userIdHome.type?.name_uz}</p>
-                <p className="price-dacha-day">
-                  {t("IshKunlarida")}:
-                  <span>
-                    {userIdHome.cost} {userIdHome.currency}
-                  </span>
+                <p className="sanatoriya">
+                  {i18n.language == "uz"
+                    ? userIdHome.type?.name_uz
+                    : userIdHome.type?.name_ru}
                 </p>
-                <p className="price-dacha-month">
-                  {t("DamOlishKunlarida")}:
-                  <span>
-                    {userIdHome.weekday_cost} {userIdHome.currency}
-                  </span>
-                </p>
+                {userIdHome.type?.id === 4 ? (
+                  <p className="price-dacha-day">
+                    {t("Price")}:
+                    <span>
+                      {userIdHome.cost} {userIdHome.currency}
+                    </span>
+                  </p>
+                ) : (
+                  <>
+                    <p className="price-dacha-day">
+                      {t("IshKunlarida")}:
+                      <span>
+                        {userIdHome.cost} {userIdHome.currency}
+                      </span>
+                    </p>
+                    <p className="price-dacha-month">
+                      {t("DamOlishKunlarida")}:
+                      <span>
+                        {userIdHome.weekday_cost} {userIdHome.currency}
+                      </span>
+                    </p>
+                  </>
+                )}
               </div>
             </div>
             <div className="udobstva">

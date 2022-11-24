@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../Navbar.scss";
-import HeaderLogo from "../../../assets/img/2222.png";
+import HeaderLogo from "../../../assets/img/Layer 6.png";
 import { baseUrl } from "../../../helpers/requests";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoIosMenu } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { clearUser, fetchUser } from "../../../redux/actions/user/userAction";
+import { ScrollTo } from "react-scroll-to";
 
 const HeaderNavbarTop = () => {
   const navigate = useNavigate();
@@ -41,6 +42,15 @@ const HeaderNavbarTop = () => {
 
   const userInfor = useSelector((state) => state.user.userSite);
 
+  const myRef = useRef(null);
+
+  const gotoCategorySection = () => {
+    window.scrollTo({
+      top: myRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="header-navbar-border">
       <div className="header-navbar">
@@ -53,9 +63,28 @@ const HeaderNavbarTop = () => {
           <Link to="/">
             <p> {t("asosiy")}</p>
           </Link>
-          <Link to="/">
-            <p>{t("Bolimlar")}</p>
-          </Link>
+          <ScrollTo>
+            {({ scroll }) => (
+              <a
+                onClick={() => {
+                  navigate("/");
+                  scroll({ x: 20, y: 500, smooth: true });
+                }}
+                style={{
+                  color: "white",
+                  fontWeight: "600",
+                  marginBottom: "0",
+                  fontSize: "18px",
+                }}
+              >
+                <p>{t("Bolimlar")}</p>
+              </a>
+            )}
+            {/* <a>
+              <p onClick={gotoCategorySection}>{t("Bolimlar")}</p>
+            </a> */}
+          </ScrollTo>
+
           <Link to="/searchHome">
             <p>{t("BarchaElonlar")}</p>
           </Link>

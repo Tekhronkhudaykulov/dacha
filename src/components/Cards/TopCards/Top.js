@@ -39,7 +39,12 @@ const Top = () => {
                   key={index}
                   style={{ color: "black" }}
                 >
-                  <CardTop product={product} />
+                  <CardTop
+                    product={product}
+                    deleteProps={false}
+                    editProps={true}
+                    propsBack={true}
+                  />
                 </Link>
               ))}
           </div>

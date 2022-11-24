@@ -129,6 +129,9 @@
 
 .all-input{
     width: 100%;
+    @media(max-width:576px){
+       width: 170px;
+    }
     .newClass{
         background-color: white;
     }
